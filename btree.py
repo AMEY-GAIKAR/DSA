@@ -43,7 +43,7 @@ F.setRight(None)
 G.setLeft(None)
 G.setRight(None)
 
-def depthFirstSearch(node):
+def depthFirstTraversal(node):
     if node == None:
         return []
     
@@ -61,4 +61,104 @@ def depthFirstSearch(node):
             stack.append(current.left)
     return nodes
 
-print(depthFirstSearch(A))
+def breadthFirstTraversal(node):
+    if node == None:
+        return []
+    
+    queue = []
+    nodes = []
+    
+    queue.append(node)
+
+    while (len(queue) != 0):
+        current = queue.pop(0)
+        nodes.append(current.value)
+        if current.left:
+            queue.append(current.left)
+        if current.right:
+            queue.append(current.right)
+    return nodes
+
+def depthFirstSearch(node, value):
+    if node == None:
+        return False
+    
+    stack = []
+
+    stack.append(node)
+    while (len(stack) != 0):
+        current = stack.pop()
+        if current.value == value:
+            return True
+        if current.left:
+            stack.append(current.left)
+        if current.right:
+            stack.append(current.right)
+    return False
+
+def breadthFirstSearch(node, value):
+    if node == None:
+        return False
+    
+    queue = []
+
+    queue.append(node)
+    while (len(queue) != 0):
+        current = queue.pop(0)
+        if current.value == value:
+            return True
+        if current.left:
+            queue.append(current.left)
+        if current.right:
+            queue.append(current.right)
+    return False
+
+def depthFirstSearchRecursive(node, value):
+    if node == None:
+        return False
+    if node.value == value:
+        return True
+    return depthFirstSearchRecursive(node.left, value) or depthFirstSearchRecursive(node.right, value)
+    
+def treeSumRecursive(node):
+    if node == None:
+        return 0
+    return node.value + treeSumRecursive(node.left) + treeSumRecursive(node.right) 
+
+def treeSumDFS(node):
+    if node == None:
+        return 0
+    
+    stack = []
+    sum = 0
+
+    stack.append(node)
+    while (len(stack) != 0):
+        current = stack.pop()
+        sum += current.value
+        if current.left:
+            stack.append(current.left)
+        if current.right:
+            stack.append(current.right)
+    return sum
+
+def treeSumBFS(node):
+    if node == None:
+        return False
+
+    queue = []
+    sum = 0
+
+    queue.append(node)
+    while (len(queue) != 0):
+        current = queue.pop(0)
+        sum += current.value
+        if current.left:
+            queue.append(current.left)
+        if current.right:
+            queue.append(current.right)
+    return sum
+
+print(treeSumBFS(A))
+print(treeSumRecursive(A))
+print(treeSumDFS(A))
