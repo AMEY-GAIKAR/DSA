@@ -158,7 +158,3 @@ def treeSumBFS(node):
         if current.right:
             queue.append(current.right)
     return sum
-
-print(treeSumBFS(A))
-print(treeSumRecursive(A))
-print(treeSumDFS(A))
