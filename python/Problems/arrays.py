@@ -119,12 +119,22 @@ def remove_duplicates(array: List[int]) -> set[int]:
         unique.add(array[i])
     return unique
 
-# def remove_duplicates_II(array: List[int]) -> List[int]:
-#     i: int = 0
-#     for j in range(len(array)):
-#         if array[j] 
-#
-#     return array
+def remove_duplicates_II(array: List[int]) -> List[int]:
+    """
+    Set a pointer to 0th position.
+    Iterate over the array until a unique element is found.
+    Increment the pointer by 1 and set the pointer to the unique element.
+    Time Complexity: O(n)
+    The array is traversed once.
+    Space Complexity: O(1)
+    No extra memory is required.
+    """
+    i: int = 0
+    for j in range(len(array)):
+        if array[i] != array[j]:
+            i += 1
+            array[i] = array[j]
+    return array
 
 def left_rotate(array: List[int], places: int = 1) -> List[int]:
     """
@@ -189,4 +199,131 @@ def find_missing(array: List[int], n: int) -> float:
     """
     return n*(n-1)/2 - sum(array)
 
-print(find_missing([1,5,3,4,6], 7))
+def remove_zeros(array: List[int]) -> List[int]:
+    """
+    Iterate over the array until a zero is found.
+    Then initiate a loop from the next element until a non-zero
+    element is found and swap them.
+    Continue with the initial loop until the end of array.
+    Time Complexity: O(n)
+    Space Complexity: O(1)
+    No new variables are required.
+    """
+    for i in range(len(array)): 
+        if array[i] == 0:
+            for j in range(i+1, len(array)):
+                if array[j] != 0:
+                    array[i], array[j] = array[j], array[i]
+                    break
+    return array
+
+def maximum_ones(array: List[int]) -> int:
+    """
+    Maintain a count for maximum consecutive 1s.
+    While an element is not 0 increment temp_count and 
+    update count if temp_count is greater than count.
+    Then jump to current postion + temp_count.
+    Time Complexity: O(n)
+    Space Complexity: O(1)
+    """
+    count: int = 0
+    i: int = 0
+    temp: int = 0
+    while i < len(array):
+        if array[i] == 1:
+            j: int = i + 1
+            temp: int = 1
+            while j < len(array) and array[j] == 1:
+                temp += 1
+                j += 1
+            if temp > count:
+                count = temp
+        i += count + 1
+    return count
+
+def maximum_ones_II(array: List[int]) -> int:
+    count: int = 0
+    temp: int = 0
+    for i in range(len(array)):
+        if array[i] == 1:
+            temp += 1
+        else:
+            temp = 0
+        count = max(count, temp)
+    return count
+
+def return_once(array: List[int]) -> int:
+    """
+    Create a hashmap and return the key with its value as 1.
+    """
+    freq: Dict[int, int] = create_freq_table(array)
+    return sorted(freq, key=lambda x: freq[x])[0]
+
+def two_sum(array: List[int], sum: int) -> List[int]:
+    """
+    For every element find an element such that:
+    array[j] = sum - array[i]
+    If a pair is found return the pair, or else return [-1, -1]
+    Time Complexity: O(n^2)
+    Time Complexity is quadratic since two loops are required to 
+    find a pair.
+    Space Complexity: O(1)
+    No extra space is required.
+    """
+    for i in range(len(array)):
+        target: int = sum - array[i]
+        for j in range(i+1, len(array)):
+            if array[j] == target:
+                return [array[i], array[j]]
+    return [-1, -1]
+
+def two_sum_II(array: List[int], sum: int) -> List[int]:
+    """
+    Binary Search reduces the time complexity to O(nlogn).
+    
+    """
+    for i in range(len(array)):
+        position: int = binary_search(array[i+1:], sum-array[i], i, len(array[i+1:])-1)
+        if position >= 0:  
+            return [i, position]
+    return [-1, -1]
+
+def binary_search(array: List[int], key: int, beg: int, end: int) -> int:
+    if  end >= beg:
+        mid: int = (beg + end + 1) // 2 
+        if array[mid] == key:
+            return mid
+        elif key < array[mid]:
+            return binary_search(array, key, beg, mid-1)
+        else:
+            return binary_search(array, key, mid+1, end)
+    return -1
+
+def lower_bound(array: List[int], key: int) -> int:
+    """
+    Iterate over the array until the condition is satisfied.
+    Time Complexity: O(n)
+    Space Complexity: O(1)
+    """
+    for i in range(len(array)):
+        if array[i] > key:
+            return i-1
+        elif array[i] == key:
+            return i
+    return len(array)
+
+def upper_bound(array: List[int], key: int) -> int:
+    """
+    Iterate over the array until the condition is satisfied.
+    Time Complexity: O(n)
+    Space Complexity: O(1)
+    """
+    for i in range(len(array)-1, 0, -1):
+        if array[i] <= key:
+            return i
+    return 0
+
+def merge_two_sorted_arrays(array1: List[int], array2: List[int]) -> List[int]:
+
+if __name__ == '__main__':
+    print(merge_two_sorted_arrays([1,3,4,9], [2,5,6])) 
