@@ -13,7 +13,7 @@ class LinkedList:
     def traverse(self) -> List[int]:
         elements: List[int] = []
         current: Node = self.head
-        while current.next != None:
+        while current != None:
             elements.append(current.key)
             current = current.next
         return elements

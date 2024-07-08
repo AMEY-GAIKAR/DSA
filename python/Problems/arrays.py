@@ -217,7 +217,7 @@ def remove_zeros(array: List[int]) -> List[int]:
                     break
     return array
 
-def maximum_ones(array: List[int]) -> int:
+def maximum_ones(nums: List[int]) -> int:
     """
     Maintain a count for maximum consecutive 1s.
     While an element is not 0 increment temp_count and 
@@ -229,19 +229,29 @@ def maximum_ones(array: List[int]) -> int:
     count: int = 0
     i: int = 0
     temp: int = 0
-    while i < len(array):
-        if array[i] == 1:
+    while i < len(nums):
+        if nums[i] == 1:
             j: int = i + 1
             temp: int = 1
-            while j < len(array) and array[j] == 1:
+            while j < len(nums) and nums[j] == 1:
                 temp += 1
                 j += 1
-            if temp > count:
-                count = temp
-        i += count + 1
+                count = max(temp, count)
+        i = temp + i + 1
+        temp = 0
     return count
 
 def maximum_ones_II(array: List[int]) -> int:
+    """
+    Initiate a local & global count variable.
+    When a 1 is encountered increase the local count until another
+    element is found. Update the global count if the local count is 
+    greater.
+    Time Complexity: O(n)
+    The array is traversed only once.
+    Space Complexity: O(1)
+    No extra space is required.
+    """
     count: int = 0
     temp: int = 0
     for i in range(len(array)):
@@ -279,13 +289,21 @@ def two_sum(array: List[int], sum: int) -> List[int]:
 
 def two_sum_II(array: List[int], sum: int) -> List[int]:
     """
-    Binary Search reduces the time complexity to O(nlogn).
+    Binary Search reduces the time complexity to O(logn).
     
     """
     for i in range(len(array)):
         position: int = binary_search(array[i+1:], sum-array[i], i, len(array[i+1:])-1)
         if position >= 0:  
             return [i, position]
+    return [-1, -1]
+
+def two_sum_hashmap(array: List[int], target: int) -> List[int]:
+    map: Dict[int, int] = {}
+    for i in range(len(array)):
+        if target-array[i] in map: 
+            return [i, map[target-array[i]]]
+        map[array[i]] = i
     return [-1, -1]
 
 def binary_search(array: List[int], key: int, beg: int, end: int) -> int:
@@ -323,7 +341,91 @@ def upper_bound(array: List[int], key: int) -> int:
             return i
     return 0
 
-def merge_two_sorted_arrays(array1: List[int], array2: List[int]) -> List[int]:
+def largestAltitude(gain: List[int]) -> int:
+    """
+    Create an empty array of size 'gain' + 1.
+    Set the 1st element of the new array as 0 since the starting
+    point is 0. Iterate over the array and add gain[i] to altitude[i]
+    and set the sum to altitude[i+1].
+    Return the maximum element from altitude array.
+    Time Complexity: O(n)
+    The array is traversed once.
+    Space Complexity: O(n)
+    An array if size n is required to store altitude values.
+    """
+    altitude: List[int] = [0] * (len(gain)+1)
+    for i in range(len(gain)):
+        altitude[i+1] = altitude[i] + gain[i]
+    return max(altitude)
+
+def containsDuplicate(array: List[int]) -> bool:
+    """
+    Create a set containing all unique values in the array.
+    If a value exists within the set, return true, else return false.
+    Time Complexity: O(n)
+    The array is traversed once.
+    Space Complexity: O(n)
+    A set of max size:n is used.287136
+    """
+    values: set[int] = set()
+    for i in range(len(array)):
+        if array[i] not in values:
+            values.add((array[i]))
+        else:
+            return True
+    return False
+
+def maxProfit(prices: List[int]) -> int:
+    minimum: int = prices[0]
+    diff: int = 0
+    for i in range(len(prices)):
+        minimum = min(minimum, prices[i]) 
+        diff = max(diff, prices[i]-minimum)
+    return diff
+
+def findPivotIndex(array: List[int]) -> int:
+    for i in range(len(array)-1):
+        if array[i] > array[i+1]:
+            return i+1
+    return 0
+
+def containsDuplicate_II(nums: List[int], k: int) -> bool:
+    i: int = 0
+    while i < len(nums):
+        values: set[int] = set()
+        for n in range(i, min(len(nums), i+k+1)):
+            if nums[n] not in values:
+                values.add(nums[n])
+            else:
+                return True
+        i += 1
+    return False
+
+def merge(nums1: List[int], nums2: List[int], m: int, n: int):
+    i: int = 0
+    j: int = 0
+    while i < len(nums1) and j < n:
+        if nums2[j] <= nums1[i]:
+            nums1.insert(i, nums2[j])
+            nums1 = nums1[:m+n]
+            j += 1
+        elif nums1[i] == 0:
+            nums1[i] = nums2[j]
+            j += 1
+        i += 1
+    return nums1
+
+def diagonalSum(mat: List[List[int]]) -> int:
+    sum: int = 0
+    dim = len(mat)
+    for n in range(dim):
+        sum += mat[n][n]
+    for n in range(dim-1, -1, -1):
+        sum += mat[dim-n-1][n]
+    if dim % 2 != 0:
+        sum -= mat[dim//2][dim//2]
+    return sum
 
 if __name__ == '__main__':
-    print(merge_two_sorted_arrays([1,3,4,9], [2,5,6])) 
+    # print(merge([1,2,3,0,0,0], [2,5,6], 3, 3)) 
+    print(diagonalSum([[7,3,1,9],[3,4,6,9],[6,9,6,6],[9,5,8,5]]))

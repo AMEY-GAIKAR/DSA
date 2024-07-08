@@ -1,3 +1,5 @@
+from typing import List
+
 class ListNode:
    def __init__(self, val=0, next=None):
         self.val = val
@@ -18,7 +20,7 @@ def traverseList(head: ListNode) -> list[int]:
         current = current.next
     return elements
 
-def reverseList(head):
+def reverseList(head) -> ListNode:
     current: ListNode = head
     prev: ListNode | None = None
     while current.next != None:
@@ -39,6 +41,16 @@ def middleNode(head: ListNode) -> ListNode:
         if l % 2 == 0:
             middle = middle.next
     return middle
+
+def middleNode_II(head: ListNode) -> ListNode | None:
+    if not head:
+        return None
+    fast: ListNode = head
+    slow: ListNode = head
+    while fast and fast.next:
+        fast = fast.next.next
+        slow = slow.next
+    return slow
 
 def deleteMiddle(head: ListNode) -> ListNode:
         current: ListNode = head
@@ -134,17 +146,94 @@ def removeNthNode(head: ListNode, n: int) -> ListNode:
     slow.next = slow.next.next
     return head
 
+def reverseListRecursive(head: ListNode) -> ListNode:
+    if not head:
+        return None
+    newHead: ListNode = head
+    if head.next:
+        newHead = reverseListRecursive(head.next)
+        head.next.next = head
+    head.next = None
+    return newHead
+
+def palindromeLL(head: ListNode):
+    rev : ListNode = reverseList(middleNode_II(head))
+    curr: ListNode = head
+    while curr.next:
+        if curr.val != rev.val:
+            return False
+        rev = rev.next
+        curr = curr.next
+    return True
+
+def rotateRight(head: ListNode, k: int) -> ListNode:
+    if not head or k == 0:
+        return head
+    current: ListNode = head
+    length: int = 0
+    while current:
+        length += 1
+        current = current.next
+    if k == length:
+        return head
+    places: int = k % length
+    if places == 0:
+        return head
+    last: ListNode = head
+    for _ in range(length-places-1):
+        last = last.next
+    newHead: ListNode = last.next
+    last.next = None
+    if length == 1:
+        return head
+    current = newHead
+    while current.next:
+        current = current.next
+    current.next = head
+    return newHead
+
+def getDecimalValue(head: ListNode) -> int:
+    current: ListNode = head
+    elements: List[int] = []
+    decimal: int = 0
+    power: int = 1
+    while current:
+        elements.append(current.val)
+        current = current.next
+    print(elements)
+    for i in range(len(elements)-1, -1, -1):
+        decimal += elements[i] * power
+        power *= 2
+    return decimal
+
+def reverseKGroup(head: ListNode, k: int) -> ListNode:
+    current: ListNode = head
+    prev: ListNode | None = None
+    count: int = 0
+    while k > count:
+        temp: ListNode = current.next
+        current.next = prev
+        prev = current
+        current = temp
+        count += 1
+    new: ListNode = current.next
+    current.next = prev
+    tail: ListNode = head
+    tail.next = new
+    return current
+
 if __name__ == "__main__":
-    A = ListNode(4)
-    B = ListNode(1)
-    C = ListNode(8)
-    D = ListNode(4)
-    E = ListNode(5)
+    A = ListNode(1)
+    B = ListNode(0)
+    C = ListNode(1)
+    D = ListNode(1)
+    E = ListNode(0)
+    F = ListNode(0)
     A.next = B
-    # B.next = C
-    # C.next = D 
-    # D.next = E
-    # F = ListNode(5)
+    B.next = C
+    C.next = D 
+    D.next = E
+    E.next = F
     # G = ListNode(6)
     # H = ListNode(1)
     # I = ListNode(8)
@@ -155,4 +244,6 @@ if __name__ == "__main__":
     # H.next = I
     # I.next = J
     # J.next = K 
-    print(traverseList(removeNthNode(A, 2)))
+    print(traverseList(A))
+    print(getDecimalValue(A))
+    # print(traverseList(reverseKGroup(A, 2)))

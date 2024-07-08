@@ -10,7 +10,7 @@
 #  /\   /\
 # 4  7 13 20
 
-class Node(object):
+class TreeNode(object):
     def __init__(self, value):
         self.value = value
                 
@@ -20,13 +20,13 @@ class Node(object):
     def setRight(self, node):
         self.right = node
 
-A = Node(10)
-B = Node(5)
-C = Node(16)
-D = Node(4)
-E = Node(7)
-F = Node(13)
-G = Node(20)
+A = TreeNode(10)
+B = TreeNode(5)
+C = TreeNode(16)
+D = TreeNode(4)
+E = TreeNode(7)
+F = TreeNode(13)
+G = TreeNode(20)
 
 A.setLeft(B)
 A.setRight(C)
@@ -158,3 +158,6 @@ def treeSumBFS(node):
         if current.right:
             queue.append(current.right)
     return sum
+
+if __name__ == "__main__":
+    print(depthFirstTraversal(A))
