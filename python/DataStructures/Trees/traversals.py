@@ -48,7 +48,7 @@ def levelorderTraversal(node: TreeNode) -> List[int]:
             queue.append(current.right)
     return elements 
 
-def BFS(node: TreeNode) -> List[List[int]] | None:
+def breadthFirstTraversal(node: TreeNode) -> List[List[int]] | None:
     if not node:
         return None
     elements: List[List[int]] = []
@@ -67,26 +67,17 @@ def BFS(node: TreeNode) -> List[List[int]] | None:
         elements.append(current)
     return elements
 
-def treeHeight(node: TreeNode) -> int:
-    if not node:
-        return 0
-    height: int = 0
-    queue: List[TreeNode] = []
-    queue.append(node)
-    while queue.__len__() != 0:
-        for _ in range(len(queue)):
-            node = queue.pop(0)
-            if node.left:
-                queue.append(node.left)
-            if node.right:
-                queue.append(node.right)
-        height += 1
-    return height
-
 if __name__ == "__main__":
-    A = TreeNode(5)
-    B = TreeNode(4)
-    C = TreeNode(3)
+    A = TreeNode(10)
+    B = TreeNode(5)
+    C = TreeNode(16)
+    D = TreeNode(4)
+    E = TreeNode(7)
+    F = TreeNode(13)
+    G = TreeNode(20)
     A.left = B
     A.right = C
-    print(treeHeight(A))
+    B.left = D
+    B.right = E
+    C.left = F
+    C.right = G
