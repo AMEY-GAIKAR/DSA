@@ -426,6 +426,126 @@ def diagonalSum(mat: List[List[int]]) -> int:
         sum -= mat[dim//2][dim//2]
     return sum
 
+def kthFactor(n: int, k: int) -> int:
+    factors: List[int] = []
+    for i in range(1, n+1):
+        if n % i == 0:
+            factors.append(i)
+    print(factors)
+    if len(factors) < k:
+        return -1
+    return factors[k-1]
+
+def longestSubArraySum(nums: List[int], k: int) -> List[int]:
+    i: int = 0
+    sum: int = 0
+    for j in range(len(nums)):
+        sum += nums[j]
+        if sum == k:
+            return nums[i:j+1]
+        elif sum > k:
+            sum -= nums[i]
+            i += 1
+            if sum == k:
+                return nums[i:j+1]
+    return []
+
+def sortArray012(nums: List[int]) -> List[int]:
+    left: int = 0
+    right: int = len(nums) - 1
+    mid: int = 0    
+    while mid <= right:
+        if nums[mid] == 0:
+            nums[left], nums[mid] = nums[mid], nums[left]
+            left += 1
+            mid += 1
+        elif nums[mid] == 1:
+            mid += 1
+        else:
+            nums[mid], nums[right] = nums[right], nums[mid]
+            right -= 1
+    return nums
+
+def majorityElement(nums: List[int]) -> int:
+    count: int = 0
+    element: int = nums[0]
+    for i in range(len(nums)):
+        if count == 0:
+            element = nums[i]
+            count += 1
+        elif nums[i] == element:
+            count += 1
+        elif nums[i] != element:
+            count -= 1
+    return element
+
+def maxSubArraySum(nums: List[int]) -> int:
+    sum: int = 0
+    maxSum = int(-float('inf'))
+    for i in range(len(nums)):
+        sum = max(nums[i], sum + nums[i])
+        maxSum = max(maxSum, sum)
+    return maxSum
+
+def maxProfit(prices: List[int]) -> int:
+    minimum: int = prices[0]
+    diff: int = 0
+    for i in range(len(prices)):
+        minimum = min(minimum, prices[i]) 
+        diff = max(diff, prices[i]-minimum)
+    return diff
+
+def rearrangeBySign(nums: List[int]) -> List[int]:
+    newNums: List[int] = [0] * len(nums)
+    even: int = 0
+    odd: int = 1
+    for i in range(len(nums)):
+        if nums[i] < 0:
+            newNums[odd] = nums[i]
+            odd += 2
+        else:
+            newNums[even] = nums[i]
+            even += 2
+    return newNums
+
+def arrayLeaders(nums: List[int]) -> List[int]:
+    leader: int = nums[-1]
+    leaders: List[int] = []
+    for i in range(len(nums)-1, -1, -1):
+        if nums[i] >= leader:
+            leader = nums[i]
+            leaders.append(nums[i])
+    leaders.reverse()
+    return leaders
+
+def longestConsecutiveSubSequence(nums: List[int]) -> int:
+    maxlength: int = 1
+    s: set[int] = set(nums)
+    for i in range(len(nums)):
+        j: int = nums[i] + 1
+        contains: bool = True
+        length: int = 0
+        while contains:
+            contains = s.__contains__(j)
+            j += 1
+            length += 1
+        maxlength = max(length, maxlength)
+    return maxlength
+
+def setMatrixZeros(matrix: List[List[int]]) -> List[List[int]]:
+    rows: List[int] =  []
+    columns: List[int] = []
+    for i in range(len(matrix)):
+        for j in range(len(matrix[0])):
+            if matrix[i][j] == 0:
+                rows.append(i)
+                columns.append(j)
+    for i in range(len(rows)):
+        matrix[rows[i]] = [0] * len(matrix[0])
+    for j in range(len(columns)):
+        for k in range(len(matrix)):
+            matrix[k][columns[j]] = 0
+    return matrix
+
 if __name__ == '__main__':
-    # print(merge([1,2,3,0,0,0], [2,5,6], 3, 3)) 
-    print(diagonalSum([[7,3,1,9],[3,4,6,9],[6,9,6,6],[9,5,8,5]]))
+    print(setMatrixZeros([[0,1,2,0],[3,4,5,2],[1,3,1,5]]))

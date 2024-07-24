@@ -57,5 +57,47 @@ def canConstruct(ransomNote: str, magazine: str) -> bool:
             bag[s] -= 1
     return True
 
+def mergeAlternately(s1: str, s2: str) -> str:
+    newStr: str = ""
+    i: int = 0
+    while i < len(s1) or i < len(s2):
+        if i < len(s1):
+            newStr += s1[i]
+        if i < len(s2):
+            newStr += s2[i]
+        i += 1
+    return newStr
+
+def reverseString(s: List[str]) -> None:
+    for i in range(len(s)//2):
+        s[i], s[len(s)-i-1] = s[len(s)-i-1], s[i]
+
+def reverseVowels(word: str) -> str:
+    s: List[str] = list(word)
+    vowels: str = "aeiouAEIOU" 
+    i: int = 0
+    j: int = len(s) - 1
+    while i <= j:
+        if s[i] not in vowels:
+            i += 1
+        if s[j] not in vowels:
+            j -= 1
+        elif s[i] in vowels and s[j] in vowels:
+            s[i], s[j] = s[j], s[i]
+            i += 1
+            j -= 1
+    return "".join(s)
+
+def removeStars(s: str) -> str:
+    res: List[str] = []
+    i: int = 0
+    while i < len(s):
+        if s[i] != "*":
+            res.append(s[i])
+        else:
+            res.pop(-1)
+        i += 1
+    return "".join(res)
+
 if __name__ == "__main__":
-    print(canConstruct("aa", "ab"))
+    print(removeStars('leet**cod*e'))

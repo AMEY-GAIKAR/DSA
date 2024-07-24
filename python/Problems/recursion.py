@@ -1,6 +1,3 @@
-from typing import List
-
-
 def recursionPrint(x: int) -> None:
     if x == 0:
         print("Base Case")
@@ -42,9 +39,13 @@ def recursiveFactorialII(x: int) -> int:
         return 1
     return x * recursiveFactorialII(x-1)
 
-def reverseArray(nums: List[int]) -> List[int]:
-    revArray: List[int] = [0] * len(nums)
+def recursiveFibonacci(n: int) -> int:
+    if n <= 1:
+        return n
+    last: int = recursiveFibonacci(n-1)
+    second_last: int = recursiveFibonacci(n-2)
 
+    return last + second_last
 
 def pow(x: float, n: int) -> float:
     """
@@ -61,4 +62,4 @@ def pow(x: float, n: int) -> float:
     return 1
 
 if __name__ == "__main__":
-    print(recursiveFactorialII(5))
+    print(pow(81, -3))
