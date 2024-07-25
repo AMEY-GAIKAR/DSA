@@ -66,8 +66,17 @@ def arrayToBST(nums: List[int]) -> TreeNode:
         BSTInsert(root, nums[i])
     return root
 
-def sortedArrayToBST(nums: List) -> TreeNode:
+def isSymmetric(root: TreeNode) -> bool:
+    def helper(node1: TreeNode, node2: TreeNode) -> bool:
+        if not node1 or not node2:
+            return True
+        return node1.value == node2.value and helper(node1.left, node2.right) and helper(node1.right, node2.left)
+    if not root:
+        return True
+    if not root.left and not root.right:
+        return True
+    return helper(root.left, root.right)
 
 if __name__ == "__main__":
     A = TreeNode(10)
-    print(breadthFirstTraversal(arrayToBST([5,7,15,2,0])))
+    print()

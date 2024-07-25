@@ -99,5 +99,21 @@ def removeStars(s: str) -> str:
         i += 1
     return "".join(res)
 
+def isPalindrome(s: str) -> bool:
+    ls: List[str] = list(s.lower())
+    i: int = 0
+    j: int = len(ls) - 1
+    while i <= j:
+        if not ls[i].isalnum():
+            i += 1
+        elif not ls[j].isalnum():
+            j -= 1
+        else:
+            if ls[i] != ls[j]:
+                return False
+            i += 1
+            j -= 1
+    return True
+
 if __name__ == "__main__":
-    print(removeStars('leet**cod*e'))
+    print()

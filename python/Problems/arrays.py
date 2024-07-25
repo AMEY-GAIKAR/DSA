@@ -548,4 +548,4 @@ def setMatrixZeros(matrix: List[List[int]]) -> List[List[int]]:
     return matrix
 
 if __name__ == '__main__':
-    print(setMatrixZeros([[0,1,2,0],[3,4,5,2],[1,3,1,5]]))
+    print()
