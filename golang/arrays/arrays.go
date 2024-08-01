@@ -303,3 +303,55 @@ func CheckRotatedSorted(nums []int) bool {
   }
   return false
 }
+
+func MajorityElement(nums []int) int {
+  var count int = 0
+  var element int
+  for _, v := range nums {
+    if count == 0 {
+      element = v
+      count++
+    } else if v == element {
+      count++ 
+    } else {
+      count--
+    }
+  }
+  return element
+}
+
+func MaxSubArraySum(nums []int) int {
+  var sum int = 0
+  var max int = math.MinInt
+  for _, v := range nums {
+    sum = maxInt(sum+v, v)
+    max = maxInt(sum, max)
+  }
+  return max
+}
+
+func maxProfit(prices []int) int {
+  var min int = math.MaxInt
+  var diff int = -1
+  for _, v := range prices {
+    min = minInt(min, v)
+    diff = maxInt(diff, v-min)
+  } 
+  return diff
+}
+
+func RearrangeBySign(nums []int) []int {
+  var even int = 0
+  var odd int = 1
+  new := make([]int, len(nums))
+  for i := range nums {
+    if nums[i] >= 0 {
+      new[even] = nums[i]
+      even += 2
+    } else {
+      new[odd] = nums[i]
+      odd += 2
+    }
+  }
+  return new
+}

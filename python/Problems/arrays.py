@@ -108,6 +108,18 @@ def check_sorted(array: List[int]) -> bool:
             return False
     return True
 
+def checkRotatedSorted(nums: List[int]) -> bool:
+    count: int = 0
+    for i in range(1, len(nums)):
+        if nums[i] < nums[i-1]:
+            count += 1
+    if count == 0:
+        return True
+    elif count == 1 and nums[0] >= nums[-1]:
+        return True
+    else:
+        return False
+
 def remove_duplicates(array: List[int]) -> set[int]:
     """
     Convert the list/array into a set of unique elements.
@@ -428,7 +440,6 @@ def merge(nums1: List[int], nums2: List[int], m: int, n: int):
         else:
             nums1[k] = nums2[j]
             j -= 1
-        k -= 1
     return nums1
 
 def diagonalSum(mat: List[List[int]]) -> int:
@@ -563,4 +574,4 @@ def setMatrixZeros(matrix: List[List[int]]) -> List[List[int]]:
     return matrix
 
 if __name__ == '__main__':
-    print(right_rotate_k([1,2,3,4,5,6,7,8], 3))
+    print(right_rotate_k([1,2,34,5,6,7,8], 3))
