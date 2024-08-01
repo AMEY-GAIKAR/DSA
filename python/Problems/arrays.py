@@ -166,7 +166,26 @@ def left_rotate_inplace(array: List[int]) -> List[int]:
     array[len(array)-1] = temp
     return array
 
-def union(array_1: List[int], array_2: List[int]) -> List[int]:
+def right_rotate_k(nums: List[int], k: int) -> List[int]:
+    k = k % len(nums)
+    temp: List[int] = [0] * k
+    for i in range(k):
+        temp[i] = nums[i]
+    print(temp)
+    j: int = 0
+    for i in range(k, len(nums)):
+        nums[j] = nums[i]
+        j += 1
+    print(nums)
+    n: int = 0
+    for i in range(k):
+        print(nums[i], temp[n])
+        nums[k+i+2] = temp[n]
+        n += 1
+    return nums
+
+
+def unionI(array_1: List[int], array_2: List[int]) -> List[int]:
     """
     Create a sorted set.
     Iterate over the larger list and add elements from both
@@ -188,6 +207,11 @@ def union(array_1: List[int], array_2: List[int]) -> List[int]:
             union.add(greater[i])
     return list(union)
 
+def unionII(array_1: List[int], array_2: List[int]) -> List[int]:
+    s1: set[int] = set(array_1)
+    s2: set[int] = set(array_2)
+    return sorted(list(s1.union(s2)))
+
 def find_missing(array: List[int], n: int) -> float:
     """
     Calculate the sum of 1st n numbers: Sum = n*(n-1)/array_2
@@ -197,7 +221,7 @@ def find_missing(array: List[int], n: int) -> float:
     Space Complexity: 1
     No extra space is required.
     """
-    return n*(n-1)/2 - sum(array)
+    return n*(n+1)/2 - sum(array)
 
 def remove_zeros(array: List[int]) -> List[int]:
     """
@@ -375,14 +399,6 @@ def containsDuplicate(array: List[int]) -> bool:
             return True
     return False
 
-def maxProfit(prices: List[int]) -> int:
-    minimum: int = prices[0]
-    diff: int = 0
-    for i in range(len(prices)):
-        minimum = min(minimum, prices[i]) 
-        diff = max(diff, prices[i]-minimum)
-    return diff
-
 def findPivotIndex(array: List[int]) -> int:
     for i in range(len(array)-1):
         if array[i] > array[i+1]:
@@ -402,17 +418,17 @@ def containsDuplicate_II(nums: List[int], k: int) -> bool:
     return False
 
 def merge(nums1: List[int], nums2: List[int], m: int, n: int):
-    i: int = 0
-    j: int = 0
-    while i < len(nums1) and j < n:
-        if nums2[j] <= nums1[i]:
-            nums1.insert(i, nums2[j])
-            nums1 = nums1[:m+n]
-            j += 1
-        elif nums1[i] == 0:
-            nums1[i] = nums2[j]
-            j += 1
-        i += 1
+    i: int = m - 1
+    j: int = n - 1
+    k: int = m + n -1
+    while j >= 0:
+        if nums2[j] < nums1[i] and i >= 0:
+            nums1[k] = nums1[i]
+            i -= 1
+        else:
+            nums1[k] = nums2[j]
+            j -= 1
+        k -= 1
     return nums1
 
 def diagonalSum(mat: List[List[int]]) -> int:
@@ -431,7 +447,6 @@ def kthFactor(n: int, k: int) -> int:
     for i in range(1, n+1):
         if n % i == 0:
             factors.append(i)
-    print(factors)
     if len(factors) < k:
         return -1
     return factors[k-1]
@@ -519,18 +534,18 @@ def arrayLeaders(nums: List[int]) -> List[int]:
     return leaders
 
 def longestConsecutiveSubSequence(nums: List[int]) -> int:
-    maxlength: int = 1
+    maxLen: int = 0
+    length: int = 0
     s: set[int] = set(nums)
-    for i in range(len(nums)):
-        j: int = nums[i] + 1
-        contains: bool = True
-        length: int = 0
-        while contains:
-            contains = s.__contains__(j)
-            j += 1
-            length += 1
-        maxlength = max(length, maxlength)
-    return maxlength
+    for i in nums:
+        if i-1 not in s:
+            j: int = i + 1
+            length = 1
+            while j in s:
+                j += 1
+                length += 1
+            maxLen = max(maxLen, length)
+    return maxLen
 
 def setMatrixZeros(matrix: List[List[int]]) -> List[List[int]]:
     rows: List[int] =  []
@@ -548,4 +563,4 @@ def setMatrixZeros(matrix: List[List[int]]) -> List[List[int]]:
     return matrix
 
 if __name__ == '__main__':
-    print()
+    print(right_rotate_k([1,2,3,4,5,6,7,8], 3))

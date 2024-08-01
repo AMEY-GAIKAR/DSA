@@ -68,16 +68,18 @@ def breadthFirstTraversal(node: TreeNode) -> List[List[int]] | None:
     return elements
 
 if __name__ == "__main__":
-    A = TreeNode(10)
-    B = TreeNode(5)
-    C = TreeNode(16)
-    D = TreeNode(4)
-    E = TreeNode(7)
-    F = TreeNode(13)
-    G = TreeNode(20)
+    A = TreeNode(20)
+    B = TreeNode(9)
+    C = TreeNode(5)
+    D = TreeNode(12)
+    E = TreeNode(11)
+    F = TreeNode(14)
+    G = TreeNode(25)
     A.left = B
-    A.right = C
-    B.left = D
-    B.right = E
-    C.left = F
-    C.right = G
+    A.right = G
+    B.left = C
+    B.right = D
+    D.left = E
+    D.right = F
+
+    print(inorderTraversalRecursive(A))
