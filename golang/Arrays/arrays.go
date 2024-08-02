@@ -27,6 +27,23 @@ func LinearSearch(nums []int, key int) int {
   return -1
 }
 
+func SearchRange(nums []int, target int) []int {
+  answer := []int{-1, -1}
+  for i:=0; i < len(nums); i++ {
+    if nums[i] == target {
+      answer[0] = i
+      break
+    }
+  }
+  for i:=len(nums)-1; i > -1; i-- {
+    if nums[i] == target {
+      answer[1] = i
+      break
+    }
+  } 
+  return answer
+}
+
 func CreateFrequencyTable(nums []int) map[int]int {
   frequencyTable := make(map[int]int)
   for _, v := range nums {
