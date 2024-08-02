@@ -30,7 +30,7 @@ def searchInsert(array: List[int], key: int) -> int:
     position: int = len(array) - 1
     while end >= start:
         mid: int = (start + end) // 2
-        if key == array[mid]:
+        if key <= array[mid]:
             position = mid
             end = mid - 1
         else:
@@ -40,7 +40,7 @@ def searchInsert(array: List[int], key: int) -> int:
 def lower_bound_BS(array: List[int], key: int) -> int:
     end: int = len(array) - 1
     start: int = 0
-    position: int = 0
+    position: int = -1
     while end >= start:
         mid: int = (start + end) // 2
         if key <= array[mid]:
@@ -56,11 +56,11 @@ def upper_bound_BS(array: List[int], key: int) -> int:
     position: int = len(array)
     while end >= start:
         mid: int = (end + start) // 2
-        if key > array[mid]:
+        if key < array[mid]:
             position = mid
-            start = mid + 1
-        else:
             end = mid - 1
+        else:
+            start = mid + 1
     return position
 
 def floor_BS(array: List[int], key: int) -> int:
@@ -89,10 +89,12 @@ def ceil_BS(array: List[int], key: int) -> int:
             start = mid + 1
     return position
 
-def sqrt_BS(x: int) -> int:
-    start: int = 0
-    end: int = x
-    mid: int = x // 2
+def sqrt(x: int) -> int:
+    if x == 0:
+        return 0
+    start: int = 1
+    end: int = x // 2
+    ans: int = 1
     while start <= end:
         mid = (start + end) // 2
         if mid*mid == x:
@@ -101,7 +103,8 @@ def sqrt_BS(x: int) -> int:
             end = mid - 1
         else:
             start = mid + 1
-    return mid
+            ans = mid
+    return ans
 
 if __name__ == "__main__":
-    print(sqrt_BS(0))
+    print(sqrt(0))

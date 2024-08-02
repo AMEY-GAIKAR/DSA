@@ -462,20 +462,6 @@ def kthFactor(n: int, k: int) -> int:
         return -1
     return factors[k-1]
 
-def longestSubArraySum(nums: List[int], k: int) -> List[int]:
-    i: int = 0
-    sum: int = 0
-    for j in range(len(nums)):
-        sum += nums[j]
-        if sum == k:
-            return nums[i:j+1]
-        elif sum > k:
-            sum -= nums[i]
-            i += 1
-            if sum == k:
-                return nums[i:j+1]
-    return []
-
 def sortArray012(nums: List[int]) -> List[int]:
     left: int = 0
     right: int = len(nums) - 1
@@ -574,4 +560,4 @@ def setMatrixZeros(matrix: List[List[int]]) -> List[List[int]]:
     return matrix
 
 if __name__ == '__main__':
-    print(right_rotate_k([1,2,34,5,6,7,8], 3))
+    print()
