@@ -1,6 +1,8 @@
 package strings
 
-import "unicode"
+import (
+	"unicode"
+)
 
 func IsPalindrome(s string) bool {
 	var left int = 0

@@ -47,7 +47,7 @@ func SearchInsertPosition(nums []int, key int) int {
 func LowerBound(nums []int, key int) int {
   var start int = 0
   var end int = len(nums) - 1
-  var answer int = -1
+  var answer int = len(nums)
   for start <= end {
     var mid int = (start + end) / 2
     if key >= nums[mid] {

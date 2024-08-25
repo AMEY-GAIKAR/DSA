@@ -27,7 +27,7 @@ def binary_search(array: List[int], key: int) -> int:
 def searchInsert(array: List[int], key: int) -> int:
     start: int = 0
     end: int = len(array) - 1
-    position: int = len(array) - 1
+    position: int = len(array)
     while end >= start:
         mid: int = (start + end) // 2
         if key <= array[mid]:
@@ -40,7 +40,7 @@ def searchInsert(array: List[int], key: int) -> int:
 def lower_bound_BS(array: List[int], key: int) -> int:
     end: int = len(array) - 1
     start: int = 0
-    position: int = -1
+    position: int = len(array)
     while end >= start:
         mid: int = (start + end) // 2
         if key <= array[mid]:
@@ -58,32 +58,6 @@ def upper_bound_BS(array: List[int], key: int) -> int:
         mid: int = (end + start) // 2
         if key < array[mid]:
             position = mid
-            end = mid - 1
-        else:
-            start = mid + 1
-    return position
-
-def floor_BS(array: List[int], key: int) -> int:
-    start: int = 0
-    end: int = len(array) - 1
-    position: int = -1
-    while end >= start:
-        mid = (start + end) // 2
-        if array[mid] <= key:
-            position = array[mid]
-            start = mid + 1
-        else:
-            end = mid - 1
-    return position
-
-def ceil_BS(array: List[int], key: int) -> int:
-    start: int = 0
-    end: int = len(array) - 1
-    position: int = - 1
-    while end >= start:
-        mid = (start + end) // 2
-        if array[mid] >= key:
-            position = array[mid]
             end = mid - 1
         else:
             start = mid + 1

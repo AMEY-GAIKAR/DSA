@@ -5,6 +5,47 @@ class ListNode:
         self.val = val
         self.next = next
 
+def deleteNode(node: ListNode) -> None:
+    node.val = node.next.val
+    node.next = node.next.next
+
+def getLength(head: ListNode) -> int:
+    count: int = 0
+    current: ListNode | None = head
+    while current:
+        count += 1
+        current = current.next
+    return count
+
+def searchKey(head: ListNode, key: int) -> bool:
+    current: ListNode | None = head
+    while current:
+        if current.val == key:
+            return True
+        current = current.next
+    return False
+
+def insertAtEnd(head: ListNode, val: int) -> ListNode:
+    node: ListNode = ListNode(val=val)
+    if not head:
+        return node
+    current: ListNode = head
+    while current.next:
+        current = current.next
+    current.next = node
+    return head
+
+def arrayToLinkedList(nums: List[int]) -> ListNode | None:
+    if len(nums) == 0:
+        return None
+    head: ListNode = ListNode(val=nums[0])
+    prev: ListNode = head
+    for i in range(1, len(nums)):
+        node: ListNode = ListNode(val=nums[i])
+        prev.next = node
+        prev = node
+    return head
+
 def traverseList(head: ListNode) -> list[int]:
     """
     Set a pointer(current) to the head and iteratively assign the pointer
@@ -13,7 +54,7 @@ def traverseList(head: ListNode) -> list[int]:
     Time Complexity: O(n)
     Space Complexity: O(1)
     """
-    current: ListNode = head
+    current: ListNode | None = head
     elements: list[int] = []
     while current != None:
         elements.append(current.val)
@@ -34,13 +75,15 @@ def reverseList(head) -> ListNode:
 def middleNode(head: ListNode) -> ListNode:
     current: ListNode = head
     middle: ListNode = head
-    l: int = -1
+    l: int = 0
     while current.next != None:
         l += 1
         current = current.next
         if l % 2 == 0:
             middle = middle.next
-    return middle
+    if l % 2 == 0:
+        return middle
+    return middle.next
 
 def middleNode_II(head: ListNode) -> ListNode | None:
     if not head:
@@ -156,7 +199,22 @@ def reverseListRecursive(head: ListNode) -> ListNode:
     head.next = None
     return newHead
 
-def palindromeLL(head: ListNode):
+def palindromeLLI(head: ListNode) -> bool:
+    elements: List[int] = []
+    current: ListNode = head
+    while current:
+        elements.append(current.val)
+        current = current.next
+    i: int = 0
+    j: int = len(elements) - 1
+    while i < j:
+        if elements[i] != elements[j]:
+            return False
+        i += 1
+        j -= 1
+    return True
+
+def palindromeLLII(head: ListNode):
     rev : ListNode = reverseList(middleNode_II(head))
     curr: ListNode = head
     while curr.next:
@@ -200,50 +258,48 @@ def getDecimalValue(head: ListNode) -> int:
     while current:
         elements.append(current.val)
         current = current.next
-    print(elements)
     for i in range(len(elements)-1, -1, -1):
         decimal += elements[i] * power
         power *= 2
     return decimal
 
-def reverseKGroup(head: ListNode, k: int) -> ListNode:
-    current: ListNode = head
-    prev: ListNode | None = None
-    count: int = 0
-    while k > count:
-        temp: ListNode = current.next
-        current.next = prev
-        prev = current
-        current = temp
-        count += 1
-    new: ListNode = current.next
-    current.next = prev
-    tail: ListNode = head
-    tail.next = new
-    return current
+def addTwoNumbers(l1: ListNode, l2: ListNode) -> ListNode:
+    carry: int = 0
+    result: ListNode = ListNode(0)
+    tail: ListNode = result
+    c1: ListNode = l1
+    c2: ListNode = l2
+    while c1 and c2:
+        sum = c1.val + c2.val + carry
+        n = ListNode(val=(sum)%10)
+        tail.next = n
+        tail = n
+        carry = sum//10
+        c1 = c1.next
+        c2 = c2.next
+    if not c1 and not c2 and carry == 1:
+        tail.next = ListNode(1)
+    if c1:
+        while c1:
+            sum = c1.val + carry
+            n = ListNode(val=(sum)%10)
+            carry = sum//10
+            tail.next = n
+            tail = n
+            c1 = c1.next
+        if carry == 1:
+            tail.next = ListNode(1)
+    elif c2:
+        while c2:
+            sum = c2.val + carry
+            n = ListNode(val=(sum)%10)
+            carry = sum//10
+            tail.next = n
+            tail = n
+            c2 = c2.next
+        if carry == 1:
+            tail.next = ListNode(1)
+    return result.next
 
 if __name__ == "__main__":
-    A = ListNode(1)
-    B = ListNode(0)
-    C = ListNode(1)
-    D = ListNode(1)
-    E = ListNode(0)
-    F = ListNode(0)
-    A.next = B
-    B.next = C
-    C.next = D 
-    D.next = E
-    E.next = F
-    # G = ListNode(6)
-    # H = ListNode(1)
-    # I = ListNode(8)
-    # J = ListNode(4)
-    # K = ListNode(5)
-    # F.next = G
-    # G.next = B
-    # H.next = I
-    # I.next = J
-    # J.next = K 
-    print(traverseList(A))
-    print(getDecimalValue(A))
-    # print(traverseList(reverseKGroup(A, 2)))
+    print()

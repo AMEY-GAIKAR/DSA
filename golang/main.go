@@ -3,9 +3,11 @@ package main
 import (
 	"fmt"
 
-	"github.com/AMEY-GAIKAR/DataStructures/Arrays"
+	"github.com/AMEY-GAIKAR/DataStructures/Dynamic" 
 )
 
 func main()  {
-  fmt.Println(Arrays.LowerBound([]int{1,2,4,5,6,9}, 8)) 
+  dp := make([]int, 7+1)
+  res := dynamic.Fibonacci(7, &dp)
+  fmt.Println(res)
 }

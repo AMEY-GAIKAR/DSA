@@ -258,10 +258,12 @@ func RemoveZeros(nums []int) []int {
 }
 
 func ContainsDuplicate(nums []int) bool {
-  search := make(map[int]int)
+  search := make(map[int]bool)
   for _, v := range nums {
     if _, exist := search[v]; exist {
       return true
+    } else {
+      search[v] = true
     }
   }
   return false
@@ -300,7 +302,7 @@ func SortColors(nums []int)  {
       nums[right], nums[mid] = nums[mid], nums[right]
       right--
     } else {
-        mid++
+      mid++
     }
   }
 }
