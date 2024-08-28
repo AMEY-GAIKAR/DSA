@@ -60,12 +60,6 @@ def BSTInsert(node: TreeNode, x: int):
         else:
             BSTInsert(node.right, x)
 
-def arrayToBST(nums: List[int]) -> TreeNode:
-    root: TreeNode = TreeNode(nums[0])
-    for i in range(1, len(nums)):
-        BSTInsert(root, nums[i])
-    return root
-
 def isSymmetric(root: TreeNode) -> bool:
     def helper(node1: TreeNode, node2: TreeNode) -> bool:
         if not node1 or not node2:
