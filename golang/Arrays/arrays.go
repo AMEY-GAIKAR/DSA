@@ -339,7 +339,7 @@ func MajorityElement(nums []int) int {
   return element
 }
 
-func MaxSubArraySum(nums []int) int {
+func MaxSubArraySumI(nums []int) int {
   var sum int = 0
   var max int = math.MinInt
   for _, v := range nums {
@@ -349,7 +349,29 @@ func MaxSubArraySum(nums []int) int {
   return max
 }
 
-func maxProfit(prices []int) int {
+func MaxSubArraySumII(nums []int) []int {
+  var sum int = 0
+  var max int = math.MinInt
+  var start int = 0
+  var ansEnd, ansStart int = -1, -1
+  for i := range nums {
+    if sum == 0 {
+      start = i
+    }
+    sum += nums[i]
+    if sum > max {
+      max = sum
+      ansStart = start
+      ansEnd = i
+    }
+    if sum < 0 {
+      sum = 0
+    }
+  }
+  return nums[ansStart:ansEnd+1]
+}
+
+func MaxProfit(prices []int) int {
   var min int = math.MaxInt
   var diff int = -1
   for _, v := range prices {
@@ -374,3 +396,116 @@ func RearrangeBySign(nums []int) []int {
   }
   return new
 }
+
+func Merge(nums1, nums2 []int, m, n int) []int {
+  var i int = m - 1
+  var j int = n - 1
+  var k int = m + n - 1
+  for j >= 0 && i >= 0 {
+    if nums1[i] > nums2[j] {
+      nums1[k] = nums1[i]
+      i--
+    } else {
+      nums1[k] = nums2[j]
+      j--
+    }
+    k--
+  }
+  for j >= 0 {
+    nums1[k] = nums2[j]
+    j--
+    k--
+  }
+  return nums1
+}
+
+func LongestSubArrayWithSumI(nums []int, k int) int {
+  var answer int = 0
+  for i := range nums {
+    var sum int = 0
+    for j := i; j < len(nums); j++ {
+      sum += nums[j]
+      if sum == k {
+        answer = maxInt(answer, j - i + 1)
+      }
+    }
+  }
+  return answer
+}
+
+func LongestSubArrayWithSumII(nums []int, k int) int {
+  prefixSum := make(map[int]int)
+  var sum int = 0
+  var answer int = 0
+  prefixSum[0] = 1
+  for i := range nums {
+    sum += nums[i]
+    var remaining int = sum - k
+    if _, ok := prefixSum[remaining]; ok {
+      answer += prefixSum[remaining]
+    }
+    prefixSum[sum]++
+  }
+  return answer
+}
+
+func LongestSubArrayWithSumPositives(nums []int, k int) int {
+  var i int = 0
+  var answer int = 0
+  var sum int = 0
+  for j := range nums {
+    sum += nums[j]
+    if sum == k {
+      answer = maxInt(answer, j - i + 1)
+      i++
+      sum -= nums[i]
+    }
+    for sum > k && i <= j {
+      sum -= nums[i]
+      i++
+    }
+  }
+  return answer
+}
+
+func RotateMatrix(nums [][]int) [][]int {
+  for i := range nums {
+    for j := i; j < len(nums[0]); j++ {
+      nums[i][j], nums[j][i] = nums[j][i], nums[i][j]
+    }
+  }
+  for i := 0; i < len(nums); i++ {
+    j, k := 0, len(nums[0]) - 1
+    for j <= k {
+      nums[i][j], nums[i][k] = nums[i][k], nums[i][j]
+      j++
+      k--
+    }
+  }
+  return nums
+}
+
+func SetZeroes(matrix [][]int) [][]int {
+  rows := make(map[int]bool)
+  columns := make(map[int]bool)
+  for i := 0; i < len(matrix); i++ {
+    for j := 0; j < len(matrix[0]); j++ {
+      if matrix[i][j] == 0 {
+        rows[i] = true
+        columns[j] = true
+      }
+    }
+  }
+  for i := range matrix {
+    for j := range matrix[0] {
+      if rows[i] || columns[j] {
+      matrix[i][j] = 0
+      }
+    }
+  }
+  return matrix
+}
+
+func SpiralMatix(matrix [][]int) []int {
+
+} 
