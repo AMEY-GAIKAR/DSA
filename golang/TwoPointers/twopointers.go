@@ -20,7 +20,7 @@ func MinInt(a, b int) int {
 
 func ViewWindowSizeK(nums []int, k int) [][]int {
   if k > len(nums) || k <= 0 {
-    return nil
+    return [][]int{}
   }
   var result [][]int
   var left int = 0
@@ -151,7 +151,7 @@ func MaximumOnesIII(nums []int, k int) int {
 }
 
 func MaximumOnesIIII(nums []int, k int) int {
-  var left, right, zeros, maxLength = 0, 0, 0, 0
+  var left, right, zeros, maxLength int = 0, 0, 0, 0
 	for right < len(nums) {
 		if nums[right] == 0 {
 			zeros++

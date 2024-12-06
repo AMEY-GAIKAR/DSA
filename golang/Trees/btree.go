@@ -472,3 +472,30 @@ func CountNodesRecursive(root *TreeNode) int {
   }
   return 1 + CountNodesRecursive(root.Left) + CountNodesRecursive(root.Right)
 }
+
+func MinDepth(root *TreeNode) int {
+  if root == nil {
+    return 0
+  }
+  var queue []*TreeNode
+  var depth int = 1
+  queue = append(queue, root)
+  for len(queue) != 0 {
+    var base int = len(queue)
+    for i := 0; i < base; i++ {
+      var node *TreeNode = queue[0]
+      queue = queue[1:]
+      if node.Left == nil && node.Right == nil {
+        return depth
+      }
+      if node.Left != nil {
+        queue = append(queue, node.Left)
+      }
+      if node.Right != nil {
+        queue = append(queue, node.Right)
+      }
+    }
+  depth++
+  }
+  return depth
+}

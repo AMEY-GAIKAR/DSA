@@ -9,7 +9,7 @@ class Node:
 class DoublyLinkedList:
     def __init__(self, head: Node) -> None:
         self.head: Node = head
-        self.length: int = self.__len__()
+        self.length: int = 0
 
     def traverse(self) -> List[int]:
         elements: List[int] = []

@@ -96,7 +96,7 @@ func TraverseList(head *ListNode) []int {
   return elements
 }
 
-func removeElements(head *ListNode, val int) *ListNode {
+func RemoveElements(head *ListNode, val int) *ListNode {
 	current := head
 	var prev *ListNode
 	for current != nil {
@@ -118,7 +118,7 @@ func removeElements(head *ListNode, val int) *ListNode {
 func MiddleNodeI(head *ListNode) *ListNode {
   var fast *ListNode = head
   var slow *ListNode = head
-  for fast == nil && fast.Next != nil {
+  for fast != nil && fast.Next != nil {
     fast = fast.Next.Next
     slow = slow.Next
   }

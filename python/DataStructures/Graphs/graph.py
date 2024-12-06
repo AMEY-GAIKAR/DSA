@@ -1,10 +1,12 @@
+from typing import List
+
 class Vertex:
     def __init__(self, key: str) -> None:
         self.key: str = key
-        self.neighbours = [Vertex]
+        self.neighbours: List[Vertex] = []
 
     def AddEdge(self, to) -> None:
-        if self.neighbours.__contains__(to) == False:
+        if not self.neighbours.__contains__(to):
             self.neighbours.append(to)
     
     def RemoveEdge(self, to) -> None:
@@ -18,7 +20,7 @@ class Graph:
         self.AdjacencyMatrix = [[0] * size for _ in range(size)]
 
     def AddVertex(self, vertex: Vertex) -> None:
-        if self.Vertices.__contains__(vertex.key) == False:
+        if not self.Vertices.__contains__(vertex.key):
             self.Vertices.append(vertex.key)
             self.Names[vertex.key] = len(self.Names)
 
@@ -34,28 +36,3 @@ class Graph:
         t = self.Names[kwargs["to"].key]
         f = self.Names[kwargs["from"].key]
         self.AdjacencyMatrix[t][f] = kwargs["weight"]
-
-a = Vertex("A")
-b = Vertex("B")
-c = Vertex("C")
-d = Vertex("D")
-e = Vertex("E")
-
-a.AddEdge(b)
-a.AddEdge(c)
-b.AddEdge(d)
-b.AddEdge(c)
-d.AddEdge(e)
-
-g = Graph(size=5)
-g.AddVertex(a)
-g.AddVertex(b)
-g.AddVertex(c)
-g.AddVertex(d)
-g.AddVertex(e)
-
-g.AddWeight(**{"to":b, "from":a, "weight":1})
-g.AddWeight(**{"to":c, "from":a, "weight":2})
-g.AddWeight(**{"to":d, "from":b, "weight":1})
-g.AddWeight(**{"to":c, "from":b, "weight":3})
-g.AddWeight(**{"to":e, "from":d, "weight":2})

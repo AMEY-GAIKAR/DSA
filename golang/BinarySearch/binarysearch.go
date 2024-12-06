@@ -28,6 +28,24 @@ func BinarySearchRecursive(nums []int, start, end, key int) int {
   return -1
 }
 
+func BinarySearch2D(matrix [][]int, target int) bool {
+  var rows int = len(matrix)
+  var columns int = len(matrix[0])
+  var start int = 0
+  var end int = rows * columns - 1
+  for start <= end {
+    var mid int  = (start + end) / 2
+    if matrix[mid / columns][mid % columns] == target {
+      return true
+    } else if matrix[mid / columns][mid % columns] > target {
+      end = mid - 1
+    } else {
+      start = mid + 1
+    }
+  }
+  return false
+}
+
 func SearchInsertPosition(nums []int, key int) int {
   var start int = 0
   var end int = len(nums) - 1

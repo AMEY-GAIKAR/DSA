@@ -72,17 +72,3 @@ class LinkedList:
             current = temp
         current.next = prev
         self.head = current
-    
-A = Node(1)
-B = Node(2)
-C = Node(3)
-D = Node(4)
-E = Node(5)
-
-A.next = B
-B.next = C
-C.next = D
-D.next = E
-
-ll = LinkedList(A)
-print(ll.traverse())

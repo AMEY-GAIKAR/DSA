@@ -18,6 +18,17 @@ func minInt(a, b int) int {
   }
 }
 
+func Reverse(nums []int) []int {
+  var i int = 0;
+  var j int = len(nums) - 1
+  for i < j {
+    nums[i], nums[j] = nums[j], nums[i]
+    i++
+    j--
+  }
+  return nums
+}
+
 func LinearSearch(nums []int, key int) int {
   for i, v := range nums {
     if v == key {
@@ -27,8 +38,8 @@ func LinearSearch(nums []int, key int) int {
   return -1
 }
 
-func SearchRange(nums []int, target int) []int {
-  answer := []int{-1, -1}
+func SearchRange(nums []int, target int) [2]int {
+  answer := [2]int{-1, -1}
   for i:=0; i < len(nums); i++ {
     if nums[i] == target {
       answer[0] = i
@@ -118,6 +129,18 @@ func FindSecondLargest(nums []int) int {
     }
   }
   return secondLargest
+}
+
+func Leaders(nums []int) []int {
+  answer := []int{}
+  max := nums[len(nums) - 1]
+  for i := len(nums) - 2; i >= 0; i-- {
+    if nums[i] >= max {
+      answer = append(answer, nums[i])
+      max = nums[i]
+    }
+  }
+  return Reverse(answer)
 }
 
 func FindSingleI(nums []int) int {
@@ -323,7 +346,7 @@ func CheckRotatedSorted(nums []int) bool {
   return false
 }
 
-func MajorityElement(nums []int) int {
+func MajorityElementI(nums []int) int {
   var count int = 0
   var element int
   for _, v := range nums {
@@ -337,6 +360,46 @@ func MajorityElement(nums []int) int {
     }
   }
   return element
+}
+
+func MajorityElementII(nums []int) []int {
+  var c1 int = 0
+	var c2 int = 0
+	var ele1 int = 0
+	var ele2 int = 0
+  answer := []int{}
+	for i := range nums {
+		if nums[i] == ele1 {
+			c1++
+		} else if nums[i] == ele2 {
+			c2++
+		} else if c1 == 0 {
+			ele1 = nums[i]
+      c1++
+		} else if c2 == 0 {
+			ele2 = nums[i]
+      c2++
+		} else {
+			c1--
+			c2--
+		}
+	}
+  c1 = 0
+  c2 = 0
+  for i := range nums {
+    if nums[i] == ele1 {
+      c1++
+    } else if nums[i] == ele2 {
+      c2++
+    }
+  }
+  if c1 > len(nums) / 3 {
+    answer = append(answer, ele1)
+  }
+  if c2 > len(nums) / 3 {
+    answer = append(answer, ele2)
+  }
+	return answer
 }
 
 func MaxSubArraySumI(nums []int) int {
@@ -382,16 +445,16 @@ func MaxProfit(prices []int) int {
 }
 
 func RearrangeBySign(nums []int) []int {
-  var even int = 0
-  var odd int = 1
+  var positive int = 0
+  var negative int = 1
   new := make([]int, len(nums))
   for i := range nums {
     if nums[i] >= 0 {
-      new[even] = nums[i]
-      even += 2
+      new[positive] = nums[i]
+      positive += 2
     } else {
-      new[odd] = nums[i]
-      odd += 2
+      new[negative] = nums[i]
+      negative += 2
     }
   }
   return new
@@ -419,7 +482,7 @@ func Merge(nums1, nums2 []int, m, n int) []int {
   return nums1
 }
 
-func LongestSubArrayWithSumI(nums []int, k int) int {
+func SubArraysWithSumI(nums []int, k int) int {
   var answer int = 0
   for i := range nums {
     var sum int = 0
@@ -433,7 +496,7 @@ func LongestSubArrayWithSumI(nums []int, k int) int {
   return answer
 }
 
-func LongestSubArrayWithSumII(nums []int, k int) int {
+func SubArraysWithSumII(nums []int, k int) int {
   prefixSum := make(map[int]int)
   var sum int = 0
   var answer int = 0
@@ -455,14 +518,12 @@ func LongestSubArrayWithSumPositives(nums []int, k int) int {
   var sum int = 0
   for j := range nums {
     sum += nums[j]
-    if sum == k {
-      answer = maxInt(answer, j - i + 1)
-      i++
-      sum -= nums[i]
-    }
     for sum > k && i <= j {
       sum -= nums[i]
       i++
+    }
+    if sum == k {
+      answer = maxInt(answer, j - i + 1)
     }
   }
   return answer
@@ -507,5 +568,48 @@ func SetZeroes(matrix [][]int) [][]int {
 }
 
 func SpiralMatix(matrix [][]int) []int {
-
+  var rows int = len(matrix)
+  var columns int = len(matrix[0])
+  var left int = 0 
+  var right int = columns - 1
+  var top int = 0
+  var bottom int = rows - 1
+  var answer []int
+  
+  for left <= right && top <= bottom {
+    for i := left; i <= right; i++ {
+      answer = append(answer, matrix[top][i])
+    }
+    top++
+    for i := top; i <= bottom; i++ {
+      answer = append(answer, matrix[i][right])
+    }
+    right--
+    if top <= bottom {
+      for i := right; i >= left; i-- {
+        answer = append(answer, matrix[bottom][i])
+      }
+    bottom--
+    }
+    if left <= right {
+      for i := bottom; i >= top; i-- {
+        answer = append(answer, matrix[i][left])
+      }
+      left++
+    }
+  }
+  return answer
 } 
+
+func ThreeSumI(nums []int, target int) [3]int {
+  for i := 0; i < len(nums); i++ {
+    for j := i + 1; j < len(nums); j++ {
+      for k := j + 1; k < len(nums); k++ {
+        if nums[i] + nums[j] + nums[k] == target {
+          return [3]int{i, j, k}
+        }
+      }
+    }
+  }
+  return [3]int{-1, -1, -1}
+}

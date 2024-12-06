@@ -149,6 +149,23 @@ int FindSecondLargest(int nums[], size_t size) {
   return secondLargest;
 }
 
+int* Leaders(int nums[], size_t size, int* returnSize) {
+  int* answer = (int*) malloc(sizeof(int) * size);
+  int max = nums[size - 1];
+  answer[0] = max; 
+  int index = 1;
+  for (int i = size - 2; i >= 0; i--) {
+    if (nums[i] >= max) {
+      max = nums[i];
+      answer[index] = nums[i];
+      index++;
+    }
+  }
+  *returnSize = index;
+  Reverse(answer, *returnSize);
+  return answer;
+}
+
 int FindSingleI(int nums[], size_t size) {
   int xorSum = 0;
   for (int i = 0; i < size; i++) {
@@ -197,7 +214,7 @@ int FindLowestFrequency(int nums[], size_t size) {
 }
 
 bool CheckSorted(int nums[], size_t size) {
-  for (int i = 0; i < size; i++) {
+  for (int i = 0; i < size - 1; i++) {
     if (nums[i] > nums[i+1]) {
       return false;
     }
@@ -274,6 +291,27 @@ int* TwoSumI(int nums[], size_t size, int target, int* returnSize) {
   return answer;
 }
 
+int* TwoSumII(int nums[], size_t size, int target, int* returnSize) {
+  *returnSize = 2;
+  int* answer = (int*) malloc(sizeof(int) * (*returnSize));
+  int left = 0;
+  int right = size - 1;
+  while (left < right) {
+    if (nums[left] + nums[right] == target) {
+      answer[0] = nums[left];
+      answer[1] = nums[right];
+      return answer;
+    } else if (nums[left] + nums[right] < target) {
+      left++;
+    } else {
+      right--;
+    }
+  }
+  answer[0] = nums[left];
+  answer[1] = nums[right];
+  return answer;
+}
+
 int RemoveDuplicates(int nums[], size_t size) {
   int i = 0;
   for (int j = 1; j < size; j++) {
@@ -320,7 +358,7 @@ void SortColors(int nums[], size_t size) {
   }
 }
 
-int MajorityElement(int nums[], size_t size) {
+int MajorityElementI(int nums[], size_t size) {
   int count = 0;
   int element = nums[0];
   for (int i = 0; i < size; i++) {
@@ -336,6 +374,47 @@ int MajorityElement(int nums[], size_t size) {
   return element;
 }
 
+int* MajorityElementII(int nums[], size_t size, int* returnSize) {
+  int c1 = 0;
+  int c2 = 0;
+  int e1= 0;
+  int e2 = 0;
+  for (int i = 0; i < size; i++) {
+    if (nums[i] == e1) {
+      c1++;
+    } else if (nums[i] == e2) {
+      c2++;
+    } else if (c1 == 0) {
+      e1 = nums[i];
+      c1 = 1;
+    } else if (c2 == 0) {
+      e2 = nums[i];
+      c2 = 1;
+    } else {
+      c1--;
+      c2--;
+    }
+  }
+  c1 = 0;
+  c2 = 0;
+  for (int i = 0; i < size; i++) {
+    if (nums[i] == e1) {
+      c1++;
+    } else if (nums[i] == e2) {
+      c2++;
+    }
+  }
+  int* answer = (int*)malloc(sizeof(int) * 2);
+  *returnSize = 0;
+  if (c1 > size / 3) {
+    answer[(*returnSize)++] = e1;
+  }
+  if (c2 > size / 3) {
+    answer[(*returnSize)++] = e2;
+  }
+  return answer;
+}
+
 int MaxSubarraySumI(int nums[], size_t size) {
   int globalSum = INT_MIN;
   int localSum = 0;
@@ -347,7 +426,7 @@ int MaxSubarraySumI(int nums[], size_t size) {
 }
 
 int* MaxSubarraySumII(int nums[], size_t size, int* returnSize) {
-  int globalSum = 0;
+  int globalSum = INT_MIN;
   int localSum = 0;
   int start = 0;
   int end = 0;
@@ -365,7 +444,7 @@ int* MaxSubarraySumII(int nums[], size_t size, int* returnSize) {
       localSum = 0;
     }
   }
-  int* answer = (int*) malloc(sizeof(int));
+  int* answer = (int*) malloc(sizeof(int) * 2);
   answer[0] = start;
   answer[1] = end;
   return answer;
@@ -443,12 +522,12 @@ void RotateByK(int nums[], size_t size, int k) {
   }
 }
 
-int* RearrangeBySign(int* nums, int numsSize, int* returnSize) {
-  int* answer = (int*) malloc(sizeof(int) * numsSize);
-  *returnSize = numsSize;
+int* RearrangeBySign(int* nums, int size, int* returnSize) {
+  int* answer = (int*) malloc(sizeof(int) * size);
+  *returnSize = size;
   int positive = 0;
   int negative = 1;
-  for (int i = 0; i < numsSize; i++) {
+  for (int i = 0; i < size; i++) {
     if (nums[i] >= 0) {
       answer[positive] = nums[i];
       positive += 2;
@@ -468,4 +547,25 @@ int MaxProfit(int* prices, int pricesSize) {
     diff = maxInt(diff, prices[i] - min);
   }
   return diff;
+}
+
+void Merge(int nums1[], int nums2[], size_t size1, size_t size2) {
+  int i = size1 - 1;
+  int j = size2 - 1;
+  int k = size1 + size2 - 1;
+  while (i >= 0 && j >= 0) {
+    if (nums1[i] > nums2[j]) {
+      nums1[k] = nums1[i];
+      i--;
+    } else {
+      nums1[k] = nums2[j];
+      j--;
+    }
+    k--;
+  }
+  while (j >= 0) {
+    nums1[k] = nums2[j];
+    j--;
+    k--;
+  }
 }
