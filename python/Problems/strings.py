@@ -85,6 +85,3 @@ def isPalindrome(s: str) -> bool:
             i += 1
             j -= 1
     return True
-
-if __name__ == "__main__":
-    print()
