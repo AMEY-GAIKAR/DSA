@@ -51,6 +51,18 @@ func NthPrime(n int) int {
   return prime
 }
 
+func PrimeFactors(n int) []int {
+  var primeFactors []int
+  for i := 2; i <= n; i++ {
+    if (n % i == 0) {
+      if (IsPrime(i)) {
+        primeFactors = append(primeFactors, i)
+      }
+    }
+  }
+  return primeFactors
+}
+
 func IsPalindrome(x int) bool {
   if x < 0 || (x % 10 == 0 && x != 0){
     return false

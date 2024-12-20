@@ -97,7 +97,7 @@ func FindLowestFrequency(nums []int) int {
   return minFrequency
 }
 
-func FindLargestElement(nums []int) int {
+func FindLargest(nums []int) int {
   var largest int = nums[0]
   for _, v := range nums {
     if v > largest {
@@ -107,7 +107,7 @@ func FindLargestElement(nums []int) int {
   return largest
 }
 
-func FindSmallestELement(nums []int) int {
+func FindSmallest(nums []int) int {
   var smallest = nums[0]
   for _, v := range nums {
     if v < smallest {
@@ -129,6 +129,20 @@ func FindSecondLargest(nums []int) int {
     }
   }
   return secondLargest
+}
+
+func FinSecondSmallest(nums []int) int {
+  var smallest = nums[0]
+  var secondSmallest = nums[0]
+  for i := range nums {
+    if (nums[i] < smallest) {
+      secondSmallest = smallest
+      smallest = nums[i]
+    } else if nums[i] < secondSmallest && nums[i] > smallest {
+      secondSmallest = nums[i]
+    }
+  }
+  return secondSmallest
 }
 
 func Leaders(nums []int) []int {
@@ -178,6 +192,22 @@ func CheckSorted(nums []int) bool {
     }
   }
   return true
+}
+
+func CheckRotatedSorted(nums []int) bool {
+  var count int = 0
+  for i := 1; i < len(nums); i++ {
+    if nums[i] < nums[i-1] {
+       count++
+    }
+  }
+  if count == 0 {
+    return true
+  }
+  if count == 1 && nums[0] >= nums[len(nums)-1] {
+    return true
+  }
+  return false
 }
 
 func FindEvenDigits(nums []int) int {
@@ -242,22 +272,6 @@ func TwoSumII(nums []int, target int) [2]int {
   return [2]int{-1, -1}
 }
 
-func LowerBound(nums []int, target int) int {
-  var start int = 0
-  var end int = len(nums) - 1
-  var answer int = len(nums)
-  for start <= end {
-    var mid int = start + (end - start)/2
-    if nums[mid] >= target {
-      answer = mid
-      end = mid - 1
-    } else {
-      start = mid + 1
-    }
-  }
-  return answer
-}
-
 func RemoveDuplicates(nums []int) int {
   var i int = 0
   for j := 1; j < len(nums); j++ {
@@ -312,6 +326,22 @@ func RightRotateK(nums []int, k int) []int {
   return nums
 }
 
+func LowerBound(nums []int, target int) int {
+  var start int = 0
+  var end int = len(nums) - 1
+  var answer int = len(nums)
+  for start <= end {
+    var mid int = start + (end - start)/2
+    if nums[mid] >= target {
+      answer = mid
+      end = mid - 1
+    } else {
+      start = mid + 1
+    }
+  }
+  return answer
+}
+
 func SortColors(nums []int)  {
   var left int = 0
   var mid int = 0
@@ -328,22 +358,6 @@ func SortColors(nums []int)  {
       mid++
     }
   }
-}
-
-func CheckRotatedSorted(nums []int) bool {
-  var count int = 0
-  for i := 1; i < len(nums); i++ {
-    if nums[i] < nums[i-1] {
-       count++
-    }
-  }
-  if count == 0 {
-    return true
-  }
-  if count == 1 && nums[0] >= nums[len(nums)-1] {
-    return true
-  }
-  return false
 }
 
 func MajorityElementI(nums []int) int {
