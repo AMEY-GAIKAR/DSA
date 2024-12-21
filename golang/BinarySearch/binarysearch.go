@@ -21,9 +21,9 @@ func BinarySearchRecursive(nums []int, start, end, key int) int {
   if nums[mid] == key {
     return mid
   } else if nums[mid] > key {
-    BinarySearchRecursive(nums, start, end - 1, key)
+    BinarySearchRecursive(nums, start, mid - 1, key)
   } else {
-    BinarySearchRecursive(nums, start + 1, end, key)
+    BinarySearchRecursive(nums, mid + 1, end, key)
   }
   return -1
 }
@@ -68,11 +68,11 @@ func LowerBound(nums []int, key int) int {
   var answer int = len(nums)
   for start <= end {
     var mid int = (start + end) / 2
-    if key >= nums[mid] {
+    if nums[mid] <= key {
+      answer = mid
       start = mid + 1
     } else {
       end = mid - 1
-      answer = mid
     }
   }
   return answer
@@ -89,11 +89,11 @@ func Sqrt(x int) int {
     var mid int = (start + end) / 2
     if mid * mid == x {
       return mid
-    } else if mid * mid > x {
-      end = mid - 1
-    } else {
-      answer = mid
+    } else if mid * mid < x {
       start = mid + 1
+      answer = mid
+    } else {
+      end = mid - 1
     }
   }
   return answer

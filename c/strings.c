@@ -1,7 +1,8 @@
-#include <stdbool.h>
 #include <stdio.h>
 #include <string.h>
+#include <stdbool.h>
 #include <ctype.h>
+#include <malloc.h>
 
 char FindDuplicate(char* s) {
   int c = 0;
@@ -46,11 +47,28 @@ bool IsPalindrome(char* s) {
   return true;
 }
 
+bool canConstruct(char* ransomNote, char* magazine) {
+  int map[26] ={0};
+  while (*magazine) {
+    map[*magazine - 'a']++;
+    magazine++;
+  }
+  while (*ransomNote) {
+    map[*ransomNote - 'a']--;
+    ransomNote++;
+  }
+  for (int i = 0; i < 26; i++) {
+    if (map[i] < 0) {
+      return false;
+    }
+  }
+  return true;
+}
+
 void ReverseString(char s[]) {
   int i = 0;
   int j = strlen(s) - 1;
   while (i < j) {
-    printf("%c %c\n", s[i], s[j]);
     int temp = s[i];
     s[i] = s[j];
     s[j] = temp;
@@ -59,12 +77,40 @@ void ReverseString(char s[]) {
   }
 }
 
-int main() {
+int* FindWordsContaining(char** words, int wordsSize, char x, int* returnSize) {
+  int* answer = (int*) malloc(sizeof(int) * wordsSize);
+  int index = 0;
+  for (int i = 0; i < wordsSize; i++) {
+    for (int j = 0; j < strlen(words[i]); j++) {
+      if (words[i][j] == x) {
+        answer[index++] = i;
+        break;
+      }
+    }
+  }
+  *returnSize = index;
+  int* result = (int*) realloc(answer, sizeof(int) * index); 
+  return result;
+}
 
-  char s[] = "Nan";
-  // int result = IsPalindrome(s);
-  // printf("%d\n", result);
-  ReverseString(s);
-  printf("%s\n", s);
-  return 0;
+char** ReverseWords(char s[], int* len) {
+  char** tokens = (char**) malloc((sizeof(char*) * 32));
+  char* token;
+  int position = 0;
+  token = strtok(s, " ");
+  while (token != NULL) {
+    tokens[position++] = token; 
+    token = strtok(NULL, " ");
+  }
+  *len = position;
+  int i = 0;
+  int j = position - 1;
+  while (i <= j) {
+    char* temp = tokens[i];
+    tokens[i] = tokens[j];
+    tokens[j] = temp;
+    i++;
+    j--;
+  }
+  return tokens;
 }

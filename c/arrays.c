@@ -75,114 +75,33 @@ struct CounterItem* CreateCounter(int nums[], size_t size, int* cSize) {
   return counter;
 }
 
-bool LinearSearch(int nums[], size_t size, int key) {
+int LinearSearch(int nums[], size_t size, int key) {
   for (int i = 0; i < size; i++) {
-    printf("%d\n", i);
     if (nums[i] == key) {
-      return true;
+      return i;
     }
   }
-  return false;
+  return -1;
 }
 
-int* SearchRange(int nums[],size_t size, int key, int* returnSize) {
+int* SearchRange(int nums[], size_t size, int key, int* returnSize) {
   int* answer = (int*) malloc(sizeof(int) * 2);
   *returnSize = 2;
+  answer[0] = -1;
+  answer[1] = -1;
   for (int i = 0; i < size; i++) {
     if (nums[i] == key) {
       answer[0] = i;
+      break;
     }
   }
   for (int j = size-1; j > 0; j--) {
     if (nums[j] == key) {
       answer[1] = j;
+      break;
     }
   }
   return answer;
-}
-
-int FindSmallest(int nums[], size_t size) {
-  int smallest = nums[0];
-  for (int i = 0; i < size; i++) {
-    if (nums[i] < smallest) {
-      smallest = nums[i];
-    }
-  }
-  return smallest;
-}
-
-int FindLargest(int nums[], size_t size) {
-  int largest = nums[0];
-  for (int i = 0; i < size; i++) {
-    if (nums[i] > largest) {
-      largest = nums[i];
-    }
-  }
-  return largest;
-}
-
-int FindSecondSmallest(int nums[], size_t size) {
-  int smallest = nums[0];
-  int secondSmallest = nums[0];
-  for (int i = 0; i < size; i++) {
-    if (nums[i] < smallest) {
-      smallest = nums[i];
-    }
-    if (nums[i] > smallest && nums[i] < secondSmallest) {
-      secondSmallest = nums[i];
-    }
-  }
-  return secondSmallest;
-}
-
-int FindSecondLargest(int nums[], size_t size) {
-  int largest = nums[0];
-  int secondLargest = nums[0];
-  for (int i = 0; i < size; i++) {
-    if (nums[i] < largest) {
-      largest = nums[i];
-    }
-    if (nums[i] > largest && nums[i] < secondLargest) {
-      secondLargest = nums[i];
-    }
-  }
-  return secondLargest;
-}
-
-int* Leaders(int nums[], size_t size, int* returnSize) {
-  int* answer = (int*) malloc(sizeof(int) * size);
-  int max = nums[size - 1];
-  answer[0] = max; 
-  int index = 1;
-  for (int i = size - 2; i >= 0; i--) {
-    if (nums[i] >= max) {
-      max = nums[i];
-      answer[index] = nums[i];
-      index++;
-    }
-  }
-  *returnSize = index;
-  Reverse(answer, *returnSize);
-  return answer;
-}
-
-int FindSingleI(int nums[], size_t size) {
-  int xorSum = 0;
-  for (int i = 0; i < size; i++) {
-    xorSum = xorSum ^ nums[i];
-  }
-  return xorSum;
-}
-
-int FindSingleII(int nums[], size_t size) {
-  int cSize = 0;
-  struct CounterItem* c = CreateCounter(nums, size, &cSize);
-  for (int i = 0; i < cSize; i++) {
-    if (c[i].Count == 1) {
-      return c[i].Item;
-    }
-  }
-  return 0; 
 }
 
 int FindHighestFrequency(int nums[], size_t size) {
@@ -211,6 +130,90 @@ int FindLowestFrequency(int nums[], size_t size) {
     }
   }
   return answer;
+}
+
+int FindLargest(int nums[], size_t size) {
+  int largest = nums[0];
+  for (int i = 0; i < size; i++) {
+    if (nums[i] > largest) {
+      largest = nums[i];
+    }
+  }
+  return largest;
+}
+
+int FindSmallest(int nums[], size_t size) {
+  int smallest = nums[0];
+  for (int i = 0; i < size; i++) {
+    if (nums[i] < smallest) {
+      smallest = nums[i];
+    }
+  }
+  return smallest;
+}
+
+int FindSecondLargest(int nums[], size_t size) {
+  int largest = nums[0];
+  int secondLargest = nums[0];
+  for (int i = 0; i < size; i++) {
+    if (nums[i] < largest) {
+      largest = nums[i];
+    }
+    if (nums[i] > largest && nums[i] < secondLargest) {
+      secondLargest = nums[i];
+    }
+  }
+  return secondLargest;
+}
+
+int FindSecondSmallest(int nums[], size_t size) {
+  int smallest = nums[0];
+  int secondSmallest = nums[0];
+  for (int i = 0; i < size; i++) {
+    if (nums[i] < smallest) {
+      smallest = nums[i];
+    }
+    if (nums[i] > smallest && nums[i] < secondSmallest) {
+      secondSmallest = nums[i];
+    }
+  }
+  return secondSmallest;
+}
+
+int* Leaders(int nums[], size_t size, int* returnSize) {
+  int* answer = (int*) malloc(sizeof(int) * size);
+  int max = nums[size - 1];
+  answer[0] = max; 
+  int index = 1;
+  for (int i = size - 2; i >= 0; i--) {
+    if (nums[i] >= max) {
+      max = nums[i];
+      answer[index] = nums[i];
+      index++;
+    }
+  }
+  *returnSize = index;
+  Reverse(answer, *returnSize);
+  return answer;
+}
+
+int FindSingleI(int nums[], size_t size) {
+  int cSize = 0;
+  struct CounterItem* c = CreateCounter(nums, size, &cSize);
+  for (int i = 0; i < cSize; i++) {
+    if (c[i].Count == 1) {
+      return c[i].Item;
+    }
+  }
+  return 0; 
+}
+
+int FindSingleII(int nums[], size_t size) {
+  int xorSum = 0;
+  for (int i = 0; i < size; i++) {
+    xorSum = xorSum ^ nums[i];
+  }
+  return xorSum;
 }
 
 bool CheckSorted(int nums[], size_t size) {
@@ -271,7 +274,7 @@ int FindMissing(int nums[], size_t size) {
   for (int i = 0; i < size; i++) {
     sum += nums[i];
   }
-  return n*(n+1)/2 - sum;
+  return n * (n + 1) / 2 - sum;
 }
 
 int* TwoSumI(int nums[], size_t size, int target, int* returnSize) {
@@ -288,27 +291,6 @@ int* TwoSumI(int nums[], size_t size, int target, int* returnSize) {
       }
     }
   }  
-  return answer;
-}
-
-int* TwoSumII(int nums[], size_t size, int target, int* returnSize) {
-  *returnSize = 2;
-  int* answer = (int*) malloc(sizeof(int) * (*returnSize));
-  int left = 0;
-  int right = size - 1;
-  while (left < right) {
-    if (nums[left] + nums[right] == target) {
-      answer[0] = nums[left];
-      answer[1] = nums[right];
-      return answer;
-    } else if (nums[left] + nums[right] < target) {
-      left++;
-    } else {
-      right--;
-    }
-  }
-  answer[0] = nums[left];
-  answer[1] = nums[right];
   return answer;
 }
 
@@ -335,6 +317,75 @@ int RemoveZeros(int nums[], size_t size) {
   }
   return i+1;
 } 
+
+bool ContainsDuplicates(int nums[], size_t size) {
+  int cSize = 0;
+  struct CounterItem* c = CreateCounter(nums, size, &cSize);
+  for (int i = 0; i < cSize; i++) {
+    if (c[i].Count > 1) {
+      return true;
+    }
+  }
+  return false;
+}
+
+void RightRotateByOne(int nums[], size_t size) {
+  if (size == 1) {
+    return;
+  }
+  int temp = nums[size - 1];
+  for (int i = size - 1; i >= 0; i--) {
+    nums[i] = nums[i - 1];
+  }
+  nums[0] = temp;
+}
+
+void RotateByK(int nums[], size_t size, int k) {
+  k = k % size;
+  int i = 0;
+  int j = size - 1;
+  while (i <= j) {
+    int temp = nums[i];
+    nums[i] = nums[j];
+    nums[j] = temp;
+    i++;
+    j--;
+  }
+  i = 0;
+  j = k - 1;
+  while (i <= j) {
+    int temp = nums[i];
+    nums[i] = nums[j];
+    nums[j] = temp;
+    i++;
+    j--;
+  }
+  i = k;
+  j = size - 1;
+  while (i <= j) {
+    int temp = nums[i];
+    nums[i] = nums[j];
+    nums[j] = temp;
+    i++;
+    j--;
+  }
+}
+
+int LowerBound(int nums[], size_t size, int target) {
+  int start = 0;
+  int end = size - 1;
+  int answer = size;
+  while (start <= end) {
+    int mid = (start + end) / 2;
+    if (nums[mid] >= target) {
+      answer = mid;
+      end = mid - 1;
+    } else {
+      start = mid + 1;
+    }
+  }
+  return answer;
+}
 
 void SortColors(int nums[], size_t size) {
   int low, mid;
@@ -450,76 +501,14 @@ int* MaxSubarraySumII(int nums[], size_t size, int* returnSize) {
   return answer;
 }
 
-int MaxWindowSum(int nums[], size_t size, int k) {
-  int sum = 0;
-  for (int i = 0; i < k; i++) {
-    sum += nums[i];
+int MaxProfit(int* prices, int pricesSize) {
+  int diff = -1;
+  int min = INT_MAX;
+  for (int i = 0; i < pricesSize; i++) {
+    min = minInt(min, prices[i]);
+    diff = maxInt(diff, prices[i] - min);
   }
-  int max = sum;
-  for (int i = k; i < size; i++) {
-    sum -= nums[i - k + 1];
-    sum += nums[i];
-    max = maxInt(max, sum);
-  }
-  return max;
-}
-
-int LowerBound(int nums[], size_t size, int target) {
-  int start = 0;
-  int end = size - 1;
-  int answer = size;
-  while (start <= end) {
-    int mid = (start + end) / 2;
-    if (nums[mid] >= target) {
-      answer = mid;
-      end = mid - 1;
-    } else {
-      start = mid + 1;
-    }
-  }
-  return answer;
-}
-
-void RightRotateByOne(int nums[], size_t size) {
-  if (size == 1) {
-    return;
-  }
-  int temp = nums[size - 1];
-  for (int i = size - 1; i >= 0; i--) {
-    nums[i] = nums[i - 1];
-  }
-  nums[0] = temp;
-} 
-
-void RotateByK(int nums[], size_t size, int k) {
-  k = k % size;
-  int i = 0;
-  int j = size - 1;
-  while (i <= j) {
-    int temp = nums[i];
-    nums[i] = nums[j];
-    nums[j] = temp;
-    i++;
-    j--;
-  }
-  i = 0;
-  j = k - 1;
-  while (i <= j) {
-    int temp = nums[i];
-    nums[i] = nums[j];
-    nums[j] = temp;
-    i++;
-    j--;
-  }
-  i = k;
-  j = size - 1;
-  while (i <= j) {
-    int temp = nums[i];
-    nums[i] = nums[j];
-    nums[j] = temp;
-    i++;
-    j--;
-  }
+  return diff;
 }
 
 int* RearrangeBySign(int* nums, int size, int* returnSize) {
@@ -537,16 +526,6 @@ int* RearrangeBySign(int* nums, int size, int* returnSize) {
     }
   }
   return answer;
-}
-
-int MaxProfit(int* prices, int pricesSize) {
-  int diff = -1;
-  int min = INT_MAX;
-  for (int i = 0; i < pricesSize; i++) {
-    min = minInt(min, prices[i]);
-    diff = maxInt(diff, prices[i] - min);
-  }
-  return diff;
 }
 
 void Merge(int nums1[], int nums2[], size_t size1, size_t size2) {

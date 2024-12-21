@@ -1,62 +1,146 @@
 from typing import Dict, List
 
-def create_freq_table(array: List[int]) -> Dict[int, int]:
+def maxInt(a: int, b: int) -> int:
+    if a > b:
+        return a
+    return b
+
+def minInt(a: int, b: int) -> int:
+    if a < b:
+        return a
+    return b
+
+def Reverse(nums: List[int]) -> List[int]:
+    i: int = 0
+    j: int = len(nums) - 1
+    while i < j:
+        nums[i], nums[j] = nums[j], nums[i]
+        i = i + 1
+        j = j - 1
+    return nums
+
+def LinearSearch(nums: List[int], key: int) -> int:
+    for i, v in enumerate(nums):
+        if v == key:
+            return i
+    return -1
+
+def SearchRange(nums: List[int], key: int) -> List[int]:
+    answer: List[int] = [-1, -1]
+    for i in range(len(nums)):
+        if nums[i] == key:
+            answer[0] = i
+            break
+    for i in range(len(nums)-1, -1, -1):
+        if nums[i] == key:
+            answer[1] = i
+            break
+    return answer
+
+def CreateFrequencyTable(nums: List[int]) -> Dict[int, int]:
     freq: Dict[int, int] = {}
-    for i in array:
+    for i in nums:
         if i in freq:
             freq[i] = freq[i] + 1
         else:
             freq[i] = 1
     return freq
 
-def find_highest_freq(array: List[int]) -> int:
-    freq: Dict[int, int] = create_freq_table(array)
+def FindHighestFrequency(nums: List[int]) -> int:
+    freq: Dict[int, int] = CreateFrequencyTable(nums)
     return sorted(freq, key=lambda x: freq[x])[-1]
 
-def find_lowest_freq(array: List[int]) -> int:
-    freq: Dict[int, int] = create_freq_table(array)
+def FindLowestFrequency(nums: List[int]) -> int:
+    freq: Dict[int, int] = CreateFrequencyTable(nums)
     return sorted(freq, key=lambda x: freq[x])[0]
 
-def find_second_highest_freq(array: List[int]) -> int:
-    freq: Dict[int, int] = create_freq_table(array)
+def FindSecondHighestFrequency(nums: List[int]) -> int:
+    freq: Dict[int, int] = CreateFrequencyTable(nums)
     return sorted(freq, key=lambda x: freq[x])[-2]
 
-def largest_element(array: List[int]) -> int:
-    largest: int = array[0]
-    for i in range(1, len(array)):
-        if largest < array[i]:
-            largest = array[i]
+def FindSecondLowestFrequency(nums: List[int]) -> int:
+    freq: Dict[int, int] = CreateFrequencyTable(nums)
+    return sorted(freq, key=lambda x: freq[x])[1]
+
+def FindLargest(nums: List[int]) -> int:
+    largest: int = nums[0]
+    for i in range(len(nums)):
+        if nums[i] > largest:
+            largest = nums[i]
     return largest
 
-def second_largest_smallest(array: List[int]) -> tuple:
+def FindSmallest(nums: List[int]) -> int:
+    smallest: int = nums[0]
+    for i in range(len(nums)):
+        if nums[i] > smallest:
+            smallest = nums[i]
+    return smallest
+
+def FindSecondLargest(nums: List[int]) -> int:
     largest: int = 0
     second_largest: int = 0
-    smallest: float = float('inf')
-    second_smallest: float = float('inf')
+    for i in range(len(nums)):
+        if nums[i] > largest:
+            second_largest = largest
+            largest = nums[i]
+        if nums[i] > second_largest and nums[i] < largest:
+            second_largest = nums[i]
 
-    for i in range(len(array)):
-        if array[i] > largest:
-            largest = array[i]
-        if array[i] < smallest:
-            smallest = array[i]
+    return second_largest
 
-    for i in range(len(array)):
-        if array[i] > second_largest and array[i] < largest:
-            second_largest = array[i]
-        if array[i] < second_smallest and array[i] > smallest:
-            second_smallest = array[i]
+def FindSecondSmallest(nums: List[int]) -> int:
+    smallest: int = nums[0]
+    second_smallest: int = nums[0] 
+    for i in range(len(nums)):
+        if nums[i] < smallest:
+            second_smallest = smallest
+            smallest = nums[i]    
+        if nums[i] < second_smallest and nums[i] > smallest:
+            second_smallest = nums[i]
+    return second_smallest
 
-    return second_largest, second_smallest
 
-def check_sorted(array: List[int]) -> bool:
-    for n in range(len(array)-1):
-        if array[n] <= array[n+1]:
+def Leaders(nums: List[int]) -> List[int]:
+    leader: int = nums[-1]
+    leaders: List[int] = []
+    for i in range(len(nums)-1, -1, -1):
+        if nums[i] >= leader:
+            leader = nums[i]
+            leaders.append(nums[i])
+    leaders.reverse()
+    return leaders
+
+def FindSingleI(nums: List[int]) -> int:
+    frequencyTable: Dict[int, int] = {}
+    for i in range(len(nums)):
+        if nums[i] in frequencyTable:
+            frequencyTable[nums[i]] = frequencyTable[nums[i]] + 1
+        else:
+            frequencyTable[nums[i]] = 1
+    for i in frequencyTable:
+        if frequencyTable[i] == 1:
+            return i
+    return -1
+
+def FindSingleII(nums: List[int]) -> int:
+    freq: Dict[int, int] = CreateFrequencyTable(nums)
+    return sorted(freq, key=lambda x: freq[x])[0]
+
+def FindSingleIII(nums: List[int]) -> int:
+    xorSum: int = 0
+    for _, v in enumerate(nums):
+        xorSum = xorSum ^ v
+    return xorSum
+
+def CheckSorted(nums: List[int]) -> bool:
+    for n in range(len(nums)-1):
+        if nums[n] <= nums[n+1]:
             continue
         else:
             return False
     return True
 
-def checkRotatedSorted(nums: List[int]) -> bool:
+def CheckRotatedSorted(nums: List[int]) -> bool:
     count: int = 0
     for i in range(1, len(nums)):
         if nums[i] < nums[i-1]:
@@ -68,227 +152,103 @@ def checkRotatedSorted(nums: List[int]) -> bool:
     else:
         return False
 
-def remove_duplicates(array: List[int]) -> set[int]:
-    unique: set[int] = set()
-    for i in range(len(array)):
-        unique.add(array[i])
-    return unique
+def FindEvenDigits(nums: List[int]) -> int:
+    pass
 
-def remove_duplicates_II(array: List[int]) -> List[int]:
-    i: int = 0
-    for j in range(len(array)):
-        if array[i] != array[j]:
-            i += 1
-            array[i] = array[j]
-    return array
-
-def left_rotate(array: List[int], places: int = 1) -> List[int]:
-    new_array: List[int] = [0 for _ in array]
-    for i in range(len(array)):
-        new_array[i] = array[(i+places)%len(array)]
-    return new_array
-
-def left_rotate_inplace(array: List[int]) -> List[int]:
-    temp: int = array[0]
-    for i in range(len(array)-1):
-        array[i] = array[i+1]
-    array[len(array)-1] = temp
-    return array
-
-def right_rotate_k(nums: List[int], k: int) -> List[int]:
-    k = k % len(nums)
-    temp: List[int] = [0] * k
-    for i in range(k):
-        temp[i] = nums[i]
-    print(temp)
-    j: int = 0
-    for i in range(k, len(nums)):
-        nums[j] = nums[i]
-        j += 1
-    print(nums)
-    n: int = 0
-    for i in range(k):
-        print(nums[i], temp[n])
-        nums[k+i+2] = temp[n]
-        n += 1
-    return nums
-
-
-def unionI(array_1: List[int], array_2: List[int]) -> List[int]:
-    union: set[int] = set()
-    greater: List[int] = max(array_1, array_2)
-    smaller: List[int] = min(array_1, array_2)
-    for i in range(len(greater)):
-        if i >= len(smaller):
-            union.add(greater[i])
-        else:
-            union.add(smaller[i])
-            union.add(greater[i])
-    return list(union)
-
-def unionII(array_1: List[int], array_2: List[int]) -> List[int]:
-    s1: set[int] = set(array_1)
-    s2: set[int] = set(array_2)
-    return sorted(list(s1.union(s2)))
-
-def find_missing(array: List[int], n: int) -> float:
-    return n*(n+1)/2 - sum(array)
-
-def remove_zeros(array: List[int]) -> List[int]:
-    for i in range(len(array)): 
-        if array[i] == 0:
-            for j in range(i+1, len(array)):
-                if array[j] != 0:
-                    array[i], array[j] = array[j], array[i]
-                    break
-    return array
-
-def maximum_ones(nums: List[int]) -> int:
+def MaxConsecutiveOnes(nums: List[int]) -> int:
     count: int = 0
-    i: int = 0
     temp: int = 0
-    while i < len(nums):
+    for i in range(len(nums)):
         if nums[i] == 1:
-            j: int = i + 1
-            temp: int = 1
-            while j < len(nums) and nums[j] == 1:
-                temp += 1
-                j += 1
-                count = max(temp, count)
-        i = temp + i + 1
-        temp = 0
-    return count
-
-def maximum_ones_II(array: List[int]) -> int:
-    count: int = 0
-    temp: int = 0
-    for i in range(len(array)):
-        if array[i] == 1:
             temp += 1
         else:
             temp = 0
         count = max(count, temp)
     return count
 
-def return_once(array: List[int]) -> int:
-    freq: Dict[int, int] = create_freq_table(array)
-    return sorted(freq, key=lambda x: freq[x])[0]
+def FindMissing(nums: List[int]) -> float:
+    n: int = len(nums)
+    return n*(n+1)/2 - sum(nums)
 
-def two_sum(array: List[int], sum: int) -> List[int]:
-    for i in range(len(array)):
-        target: int = sum - array[i]
-        for j in range(i+1, len(array)):
-            if array[j] == target:
-                return [array[i], array[j]]
+def TwoSumI(nums: List[int], sum: int) -> List[int]:
+    for i in range(len(nums)):
+        target: int = sum - nums[i]
+        for j in range(i+1, len(nums)):
+            if nums[j] == target:
+                return [nums[i], nums[j]]
     return [-1, -1]
 
-def two_sum_II(array: List[int], sum: int) -> List[int]:
-    for i in range(len(array)):
-        position: int = binary_search(array[i+1:], sum-array[i], i, len(array[i+1:])-1)
-        if position >= 0:  
-            return [i, position]
-    return [-1, -1]
-
-def two_sum_hashmap(array: List[int], target: int) -> List[int]:
+def TwoSumII(nums: List[int], target: int) -> List[int]:
     map: Dict[int, int] = {}
-    for i in range(len(array)):
-        if target-array[i] in map: 
-            return [i, map[target-array[i]]]
-        map[array[i]] = i
+    for i in range(len(nums)):
+        if target-nums[i] in map: 
+            return [i, map[target-nums[i]]]
+        map[nums[i]] = i
     return [-1, -1]
 
-def binary_search(array: List[int], key: int, beg: int, end: int) -> int:
-    if  end >= beg:
-        mid: int = (beg + end + 1) // 2 
-        if array[mid] == key:
-            return mid
-        elif key < array[mid]:
-            return binary_search(array, key, beg, mid-1)
-        else:
-            return binary_search(array, key, mid+1, end)
-    return -1
+def RemoveDuplicatesI(nums: List[int]) -> List[int]:
+    unique: set[int] = set()
+    for i in range(len(nums)):
+        unique.add(nums[i])
+    return list(unique)
 
-def lower_bound(array: List[int], key: int) -> int:
-    for i in range(len(array)):
-        if array[i] > key:
-            return i-1
-        elif array[i] == key:
-            return i
-    return len(array)
+def RemoveDuplicatesII(nums: List[int]) -> List[int]:
+    i: int = 0
+    for j in range(1, len(nums)):
+        if nums[i] != nums[j]:
+            i += 1
+            nums[i] = nums[j]
+    return nums
 
-def upper_bound(array: List[int], key: int) -> int:
-    for i in range(len(array)-1, 0, -1):
-        if array[i] <= key:
-            return i
-    return 0
+def RemoveZeros(nums: List[int]) -> List[int]:
+    i: int = 0
+    for j in range(len(nums)): 
+        if nums[j] == 0:
+            nums[i], nums[j] = nums[j], nums[i]
+            i += 1
+    return nums
 
-def largestAltitude(gain: List[int]) -> int:
-    altitude: List[int] = [0] * (len(gain)+1)
-    for i in range(len(gain)):
-        altitude[i+1] = altitude[i] + gain[i]
-    return max(altitude)
-
-def containsDuplicate(array: List[int]) -> bool:
+def ContainsDuplicate(nums: List[int]) -> bool:
     values: set[int] = set()
-    for i in range(len(array)):
-        if array[i] not in values:
-            values.add((array[i]))
+    for i in range(len(nums)):
+        if nums[i] not in values:
+            values.add((nums[i]))
         else:
             return True
     return False
 
-def findPivotIndex(array: List[int]) -> int:
-    for i in range(len(array)-1):
-        if array[i] > array[i+1]:
-            return i+1
-    return 0
+# TODO
+def LeftRotateK(nums: List[int]) -> List[int]:
+    temp: int = nums[0]
+    for i in range(len(nums)-1):
+        nums[i] = nums[i+1]
+    nums[len(nums)-1] = temp
+    return nums
+# TODO 
+def RightRotateK(nums: List[int], k: int) -> List[int]:
+    k = k % len(nums)
+    temp: List[int] = [0] * k
+    for i in range(k):
+        temp[i] = nums[i]
+    j: int = 0
+    for i in range(k, len(nums)):
+        nums[j] = nums[i]
+        j += 1
+    n: int = 0
+    for i in range(k):
+        nums[k+i+2] = temp[n]
+        n += 1
+    return nums
 
-def containsDuplicate_II(nums: List[int], k: int) -> bool:
-    i: int = 0
-    while i < len(nums):
-        values: set[int] = set()
-        for n in range(i, min(len(nums), i+k+1)):
-            if nums[n] not in values:
-                values.add(nums[n])
-            else:
-                return True
-        i += 1
-    return False
+def LowerBound(nums: List[int], key: int) -> int:
+    for i in range(len(nums)):
+        if nums[i] > key:
+            return i-1
+        elif nums[i] == key:
+            return i
+    return len(nums)
 
-def merge(nums1: List[int], nums2: List[int], m: int, n: int):
-    i: int = m - 1
-    j: int = n - 1
-    k: int = m + n -1
-    while j >= 0:
-        if nums2[j] < nums1[i] and i >= 0:
-            nums1[k] = nums1[i]
-            i -= 1
-        else:
-            nums1[k] = nums2[j]
-            j -= 1
-    return nums1
-
-def diagonalSum(mat: List[List[int]]) -> int:
-    sum: int = 0
-    dim = len(mat)
-    for n in range(dim):
-        sum += mat[n][n]
-    for n in range(dim-1, -1, -1):
-        sum += mat[dim-n-1][n]
-    if dim % 2 != 0:
-        sum -= mat[dim//2][dim//2]
-    return sum
-
-def kthFactor(n: int, k: int) -> int:
-    factors: List[int] = []
-    for i in range(1, n+1):
-        if n % i == 0:
-            factors.append(i)
-    if len(factors) < k:
-        return -1
-    return factors[k-1]
-
-def sortArray012(nums: List[int]) -> List[int]:
+def SortColours(nums: List[int]) -> List[int]:
     left: int = 0
     right: int = len(nums) - 1
     mid: int = 0    
@@ -304,7 +264,7 @@ def sortArray012(nums: List[int]) -> List[int]:
             right -= 1
     return nums
 
-def majorityElement(nums: List[int]) -> int:
+def MajorityElementI(nums: List[int]) -> int:
     count: int = 0
     element: int = nums[0]
     for i in range(len(nums)):
@@ -317,7 +277,7 @@ def majorityElement(nums: List[int]) -> int:
             count -= 1
     return element
 
-def maxSubArraySum(nums: List[int]) -> int:
+def MaxSubArraySum(nums: List[int]) -> int:
     sum: int = 0
     maxSum = int(-float('inf'))
     for i in range(len(nums)):
@@ -325,7 +285,7 @@ def maxSubArraySum(nums: List[int]) -> int:
         maxSum = max(maxSum, sum)
     return maxSum
 
-def maxProfit(prices: List[int]) -> int:
+def MaxProfit(prices: List[int]) -> int:
     minimum: int = prices[0]
     diff: int = 0
     for i in range(len(prices)):
@@ -333,7 +293,7 @@ def maxProfit(prices: List[int]) -> int:
         diff = max(diff, prices[i]-minimum)
     return diff
 
-def rearrangeBySign(nums: List[int]) -> List[int]:
+def RearrangeBySign(nums: List[int]) -> List[int]:
     newNums: List[int] = [0] * len(nums)
     even: int = 0
     odd: int = 1
@@ -346,17 +306,55 @@ def rearrangeBySign(nums: List[int]) -> List[int]:
             even += 2
     return newNums
 
-def arrayLeaders(nums: List[int]) -> List[int]:
-    leader: int = nums[-1]
-    leaders: List[int] = []
-    for i in range(len(nums)-1, -1, -1):
-        if nums[i] >= leader:
-            leader = nums[i]
-            leaders.append(nums[i])
-    leaders.reverse()
-    return leaders
+def Merge(nums1: List[int], nums2: List[int], m: int, n: int):
+    i: int = m - 1
+    j: int = n - 1
+    k: int = m + n -1
+    while j >= 0:
+        if nums2[j] < nums1[i] and i >= 0:
+            nums1[k] = nums1[i]
+            i -= 1
+        else:
+            nums1[k] = nums2[j]
+            j -= 1
+    return nums1
 
-def longestConsecutiveSubSequence(nums: List[int]) -> int:
+def UnionI(nums1: List[int], nums2: List[int]) -> List[int]:
+    s1: set[int] = set(nums1)
+    s2: set[int] = set(nums2)
+    return sorted(list(s1.union(s2)))
+
+def LargestAltitude(gain: List[int]) -> int:
+    altitude: List[int] = [0] * (len(gain) + 1)
+    for i in range(len(gain)):
+        altitude[i+1] = altitude[i] + gain[i]
+    return max(altitude)
+
+def FindPivotIndex(nums: List[int]) -> int:
+    for i in range(len(nums)-1):
+        if nums[i] > nums[i+1]:
+            return i+1
+    return 0
+
+def DiagonalSum(mat: List[List[int]]) -> int:
+    sum: int = 0
+    dim: int = len(mat)
+    for n in range(dim):
+        sum += mat[n][n]
+    for n in range(dim - 1, -1, -1):
+        sum += mat[dim - n - 1][n]
+    if dim % 2 != 0:
+        sum -= mat[dim // 2][dim // 2]
+    return sum
+
+def KthFactor(n: int, k: int) -> int:
+    factors: List[int] = []
+    for i in range(1, n + 1):
+        if n % i == 0:
+            factors.append(i)
+    return factors[k-1]
+
+def LongestConsecutiveSubSequence(nums: List[int]) -> int:
     maxLen: int = 0
     length: int = 0
     s: set[int] = set(nums)
@@ -370,7 +368,7 @@ def longestConsecutiveSubSequence(nums: List[int]) -> int:
             maxLen = max(maxLen, length)
     return maxLen
 
-def setMatrixZeros(matrix: List[List[int]]) -> List[List[int]]:
+def SetMatrixZeros(matrix: List[List[int]]) -> List[List[int]]:
     rows: List[int] =  []
     columns: List[int] = []
     for i in range(len(matrix)):

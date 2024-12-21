@@ -142,7 +142,7 @@ func MiddleNodeII(head *ListNode) *ListNode {
   return middle.Next
 }
 
-func reverseList(head *ListNode) *ListNode {
+func ReverseList(head *ListNode) *ListNode {
   if head == nil {
     return head
   }
@@ -280,7 +280,7 @@ func GetIntersectionNode(h1, h2 *ListNode) *ListNode {
   return nil
 }
 
-func isPalindrome(head *ListNode) bool {
+func PalindromeList(head *ListNode) bool {
   var elements = []int{}
   var current *ListNode = head
   for current != nil {
@@ -324,7 +324,7 @@ func MergeTwoLists(list1 *ListNode, list2 *ListNode) *ListNode {
 
 func ReorderList(head *ListNode)  {
   l1 := head
-  l2 := reverseList(MiddleNodeI(head))
+  l2 := ReverseList(MiddleNodeI(head))
   for l2.Next != nil {
     l1.Next, l1 = l2, l1.Next
     l2.Next, l2 = l1, l2.Next

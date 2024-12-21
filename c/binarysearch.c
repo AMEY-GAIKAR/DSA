@@ -1,4 +1,3 @@
-#include "stdio.h"
 #include <malloc.h>
 #include <stdbool.h>
 
@@ -14,6 +13,18 @@ int BinarySearch(int array[], size_t size, int key) {
     } else {
       start = mid + 1;
     }
+  }
+  return -1;
+}
+
+int BinarySearchRecursive(int nums[], size_t size, int start, int end, int key) {
+  int mid = (start + end) / 2;
+  if (nums[mid] == key) {
+    return mid;
+  } else if (nums[mid] > key) {
+    BinarySearchRecursive(nums, size, start, mid - 1, key);
+  } else {
+    BinarySearchRecursive(nums, size, mid + 1, end, key);
   }
   return -1;
 }

@@ -210,6 +210,27 @@ int SubArraysWithSumPositives(int nums[], size_t size, int k) {
   return answer;
 }
 
+int* TwoSumII(int nums[], size_t size, int target, int* returnSize) {
+  *returnSize = 2;
+  int* answer = (int*) malloc(sizeof(int) * (*returnSize));
+  answer[0] = -1;
+  answer[1] = -1;
+  int left = 0;
+  int right = size - 1;
+  while (left < right) {
+    if (nums[left] + nums[right] == target) {
+      answer[0] = nums[left];
+      answer[1] = nums[right];
+      return answer;
+    } else if (nums[left] + nums[right] < target) {
+      left++;
+    } else {
+      right--;
+    }
+  }
+  return answer;
+}
+
 int main() {
   int nums[8] = {1,2,3,4,5,6,7,8};
   size_t size = 8;

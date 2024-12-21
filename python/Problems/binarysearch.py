@@ -1,69 +1,71 @@
 from typing import List
 
-def binary_search_recursive(array: List[int], key: int, beg: int, end: int) -> int:
-    if  end >= beg:
-        mid: int = (beg + end + 1) // 2 
-        if array[mid] == key:
-            return mid
-        elif key < array[mid]:
-            return binary_search_recursive(array, key, beg, mid-1)
-        else:
-            return binary_search_recursive(array, key, mid+1, end)
-    return -1
-
-def binary_search(array: List[int], key: int) -> int:
+def BinarySearch(nums: List[int], key: int) -> int:
     start: int = 0
-    end: int = len(array) - 1
-    while end >= start:
+    end: int = len(nums) - 1
+    while start <= end:
         mid: int = (start + end) // 2
-        if array[mid] == key:
+        if nums[mid] == key:
             return mid
-        elif key < array[mid]:
+        elif nums[mid] > key:
             end = mid - 1
         else:
             start = mid + 1
     return -1 
 
-def searchInsert(array: List[int], key: int) -> int:
+def BinarySearchRecursive(nums: List[int], key: int, start: int, end: int) -> int:
+    if  end >= start:
+        mid: int = (start + end) // 2 
+        if nums[mid] == key:
+            return mid
+        elif nums[mid] < key:
+            return BinarySearchRecursive(nums, key, start, mid - 1)
+        else:
+            return BinarySearchRecursive(nums, key, mid + 1, end)
+    return -1
+
+def BinarySearch2D(matrix: List[List[int]], target: int) -> int:
+    rows: int = len(matrix)
+    columns: int = len(matrix[0])
     start: int = 0
-    end: int = len(array) - 1
-    position: int = len(array)
+    end: int = rows * columns - 1
+    while start <= end:
+        mid: int = (start + end) // 2
+        if matrix[mid // columns][mid % columns] == target:
+            return True
+        elif matrix[mid // columns][mid % columns] > target:
+            end = mid - 1
+        else:
+            start = mid + 1
+    return -1
+
+def SearchInsertPosition(nums: List[int], key: int) -> int:
+    start: int = 0
+    end: int = len(nums) - 1
+    position: int = len(nums)
     while end >= start:
         mid: int = (start + end) // 2
-        if key <= array[mid]:
+        if key <= nums[mid]:
             position = mid
             end = mid - 1
         else:
             start = mid + 1
     return position
 
-def lower_bound_BS(array: List[int], key: int) -> int:
-    end: int = len(array) - 1
+def LowerBound(nums: List[int], key: int) -> int:
+    end: int = len(nums) - 1
     start: int = 0
-    position: int = len(array)
+    position: int = len(nums)
     while end >= start:
         mid: int = (start + end) // 2
-        if key <= array[mid]:
+        if key <= nums[mid]:
             position = mid
             end = mid - 1
         else:
             start = mid + 1
     return position
 
-def upper_bound_BS(array: List[int], key: int) -> int:
-    end: int = len(array) - 1
-    start: int = 0
-    position: int = len(array)
-    while end >= start:
-        mid: int = (end + start) // 2
-        if key < array[mid]:
-            position = mid
-            end = mid - 1
-        else:
-            start = mid + 1
-    return position
-
-def sqrt(x: int) -> int:
+def Sqrt(x: int) -> int:
     if x == 0:
         return 0
     start: int = 1
@@ -71,14 +73,11 @@ def sqrt(x: int) -> int:
     ans: int = 1
     while start <= end:
         mid = (start + end) // 2
-        if mid*mid == x:
+        if mid * mid == x:
             return mid
-        elif mid*mid > x:
-            end = mid - 1
-        else:
+        elif mid * mid < x:
             start = mid + 1
             ans = mid
+        else:
+            end = mid - 1
     return ans
-
-if __name__ == "__main__":
-    print(sqrt(0))

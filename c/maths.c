@@ -1,7 +1,6 @@
 #include <malloc.h>
 #include <math.h>
 #include <stdbool.h>
-#include <stdio.h>
 
 int GCD(int a, int b) {
   int gcd = 1;

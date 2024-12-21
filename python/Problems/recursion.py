@@ -53,6 +53,3 @@ def pow(x: float, n: int) -> float:
     elif n <= -1:
         return 1/x*pow(x, n+1) 
     return 1
-
-if __name__ == "__main__":
-    print(pow(81, -3))

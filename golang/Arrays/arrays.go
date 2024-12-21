@@ -5,21 +5,19 @@ import "math"
 func maxInt(a, b int) int {
   if a > b {
     return a
-  } else {
-    return b
   }
+  return b
 }
 
 func minInt(a, b int) int {
   if a < b {
     return a
-  } else {
-    return b
   }
+  return b
 }
 
 func Reverse(nums []int) []int {
-  var i int = 0;
+  var i int = 0
   var j int = len(nums) - 1
   for i < j {
     nums[i], nums[j] = nums[j], nums[i]
@@ -40,13 +38,13 @@ func LinearSearch(nums []int, key int) int {
 
 func SearchRange(nums []int, target int) [2]int {
   answer := [2]int{-1, -1}
-  for i:=0; i < len(nums); i++ {
+  for i := 0; i < len(nums); i++ {
     if nums[i] == target {
       answer[0] = i
       break
     }
   }
-  for i:=len(nums)-1; i > -1; i-- {
+  for i := len(nums) - 1; i > -1; i-- {
     if nums[i] == target {
       answer[1] = i
       break
@@ -59,7 +57,7 @@ func CreateFrequencyTable(nums []int) map[int]int {
   frequencyTable := make(map[int]int)
   for _, v := range nums {
     if _, exist := frequencyTable[v]; exist {
-      frequencyTable[v] ++
+      frequencyTable[v]++
     } else {
       frequencyTable[v] = 1
     } 
@@ -72,7 +70,7 @@ func FindHighestFrequency(nums []int) int {
   var maxFrequency int = 0
   for _, v := range nums {
     if _, exist := frequencyTable[v]; exist {
-      frequencyTable[v] ++
+      frequencyTable[v]++
       maxFrequency = maxInt(frequencyTable[v], maxFrequency)
     } else {
       frequencyTable[v] = 1
@@ -86,7 +84,7 @@ func FindLowestFrequency(nums []int) int {
   var minFrequency int = math.MaxInt
   for _, v := range nums {
     if _, exist := frequencyTable[v]; exist {
-      frequencyTable[v] ++
+      frequencyTable[v]++
     } else {
       frequencyTable[v] = 1
     }
@@ -131,7 +129,7 @@ func FindSecondLargest(nums []int) int {
   return secondLargest
 }
 
-func FinSecondSmallest(nums []int) int {
+func FindSecondSmallest(nums []int) int {
   var smallest = nums[0]
   var secondSmallest = nums[0]
   for i := range nums {
@@ -161,7 +159,7 @@ func FindSingleI(nums []int) int {
   frequencyTable := make(map[int]int)
   for _, v := range nums {
     if _, exist := frequencyTable[v]; exist {
-      frequencyTable[v] ++
+      frequencyTable[v]++
     } else {
       frequencyTable[v] = 1
     }
@@ -187,7 +185,7 @@ func CheckSorted(nums []int) bool {
     return true
   }
   for i := 1; i <= len(nums) - 1; i++ {
-    if nums[i] < nums[i-1] {
+    if nums[i] < nums[i - 1] {
       return false
     }
   }
@@ -197,14 +195,14 @@ func CheckSorted(nums []int) bool {
 func CheckRotatedSorted(nums []int) bool {
   var count int = 0
   for i := 1; i < len(nums); i++ {
-    if nums[i] < nums[i-1] {
+    if nums[i] < nums[i - 1] {
        count++
     }
   }
   if count == 0 {
     return true
   }
-  if count == 1 && nums[0] >= nums[len(nums)-1] {
+  if count == 1 && nums[0] >= nums[len(nums) - 1] {
     return true
   }
   return false
@@ -220,7 +218,7 @@ func FindEvenDigits(nums []int) int {
       digit = digit / 10
       digitCount += 1
     }
-    if digitCount % 2  == 0{
+    if digitCount % 2 == 0{
       answer += 1
     }
   }
@@ -246,7 +244,7 @@ func FindMissing(nums []int, n int) int {
   for i := range nums {
     sum += nums[i]
   }
-  return n*(n+1)/2 - sum
+  return n * (n + 1) / 2 - sum
 }
 
 func TwoSumI(nums []int, target int) [2]int {
@@ -288,7 +286,7 @@ func RemoveZeros(nums []int) []int {
   for j := 0; j < len(nums); j ++ {
     if nums[j] != 0 {
       nums[i], nums[j] = nums[j], nums[i]
-      i ++
+      i++
     }
   }
   return nums
@@ -420,7 +418,7 @@ func MaxSubArraySumI(nums []int) int {
   var sum int = 0
   var max int = math.MinInt
   for _, v := range nums {
-    sum = maxInt(sum+v, v)
+    sum = maxInt(sum + v, v)
     max = maxInt(sum, max)
   }
   return max
@@ -441,7 +439,7 @@ func MaxSubArraySumII(nums []int) []int {
       ansStart = start
       ansEnd = i
     }
-    if sum < 0 {
+    if sum <= 0 {
       sum = 0
     }
   }
@@ -453,7 +451,7 @@ func MaxProfit(prices []int) int {
   var diff int = -1
   for _, v := range prices {
     min = minInt(min, v)
-    diff = maxInt(diff, v-min)
+    diff = maxInt(diff, v - min)
   } 
   return diff
 }
@@ -597,7 +595,7 @@ func SpiralMatix(matrix [][]int) []int {
     top++
     for i := top; i <= bottom; i++ {
       answer = append(answer, matrix[i][right])
-    }
+     }
     right--
     if top <= bottom {
       for i := right; i >= left; i-- {
