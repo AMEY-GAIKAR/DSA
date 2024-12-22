@@ -6,34 +6,34 @@ class TreeNode:
         self.right: TreeNode | None = right
         self.left: TreeNode | None = left
                 
-def preorderTraversalRecursive(node: TreeNode) -> None:
+def PreorderTraversalRecursive(node: TreeNode) -> None:
     if not node:
         return None
     print(node.value)
     if node.left:
-        preorderTraversalRecursive(node.left)
+        PreorderTraversalRecursive(node.left)
     if node.right:
-        preorderTraversalRecursive(node.right)
+        PreorderTraversalRecursive(node.right)
 
-def inorderTraversalRecursive(node: TreeNode) -> None:
+def InorderTraversalRecursive(node: TreeNode) -> None:
     if not node:
         return None
     if node.left:
-        inorderTraversalRecursive(node.left)
+        InorderTraversalRecursive(node.left)
     print(node.value)
     if node.right:
-        inorderTraversalRecursive(node.right)
+        InorderTraversalRecursive(node.right)
 
-def postorderTraversalRecursive(node: TreeNode) -> None:
+def PostorderTraversalRecursive(node: TreeNode) -> None:
     if not node:
         return None
     if node.left:
-        postorderTraversalRecursive(node.left)
+        PostorderTraversalRecursive(node.left)
     if node.right:
-        postorderTraversalRecursive(node.right)
+        PostorderTraversalRecursive(node.right)
     print(node.value)
 
-def levelorderTraversal(node: TreeNode) -> List[int]:
+def LevelorderTraversal(node: TreeNode) -> List[int]:
     if not node:
         return []
     elements: List[int] = []
@@ -48,7 +48,7 @@ def levelorderTraversal(node: TreeNode) -> List[int]:
             queue.append(current.right)
     return elements 
 
-def breadthFirstTraversal(node: TreeNode) -> List[List[int]] | None:
+def BreadthFirstTraversal(node: TreeNode) -> List[List[int]] | None:
     if not node:
         return None
     elements: List[List[int]] = []
@@ -66,20 +66,3 @@ def breadthFirstTraversal(node: TreeNode) -> List[List[int]] | None:
                 queue.append(node.right)
         elements.append(current)
     return elements
-
-if __name__ == "__main__":
-    A = TreeNode(20)
-    B = TreeNode(9)
-    C = TreeNode(5)
-    D = TreeNode(12)
-    E = TreeNode(11)
-    F = TreeNode(14)
-    G = TreeNode(25)
-    A.left = B
-    A.right = G
-    B.left = C
-    B.right = D
-    D.left = E
-    D.right = F
-
-    print(inorderTraversalRecursive(A))

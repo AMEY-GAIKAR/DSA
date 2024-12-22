@@ -1,16 +1,16 @@
 from typing import List
 
 class Node:
-    def __init__(self, key: int, next = None) -> None:
+    def __init__(self, key: int, next) -> None:
         self.key: int = key
-        self.next: Node | None = next
+        self.next: Node = next
 
 class LinkedList:
     def __init__(self, head: Node) -> None:
         self.head: Node = head
         self.length: int = 0
 
-    def traverse(self) -> List[int]:
+    def Traverse(self) -> List[int]:
         elements: List[int] = []
         current: Node = self.head
         while current != None:
@@ -18,7 +18,7 @@ class LinkedList:
             current = current.next
         return elements
 
-    def search(self, val: int) -> bool:
+    def Search(self, val: int) -> bool:
         current: Node = self.head
         while current != None:
             if current.key == val:
@@ -34,7 +34,7 @@ class LinkedList:
             current = current.next
         return self.length
 
-    def append(self, node: Node) -> None:
+    def Append(self, node: Node) -> None:
         if not self.head:
             self.head = node
         else:
@@ -43,26 +43,23 @@ class LinkedList:
                 current = current.next
             current.next = node
 
-    def prepend(self, node: Node) -> None:
+    def Prepend(self, node: Node) -> None:
         node.next = self.head
         self.head = node
 
-    def deleteFirst(self) -> Node:
+    def DeleteFirst(self) -> None:
         next: Node = self.head.next
-        self.head.next = None
         self.head = next
-        return next
 
-    def deleteLast(self) -> Node:
+    def DeleteLast(self) -> None:
         current: Node = self.head
         prev: Node = None
         while current.next != None:
             prev = current
             current = current.next
         prev.next = None
-        return current
 
-    def reverse(self) -> None:
+    def Reverse(self) -> None:
         current: Node = self.head
         prev: Node | None = None
         while current.next != None:

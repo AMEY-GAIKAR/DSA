@@ -1,15 +1,3 @@
-#     a
-#    / \
-#   b   c
-#  /\   /\
-# d  e f  g
-#
-#     10
-#     /\
-#   5   16
-#  /\   /\
-# 4  7 13 20
-
 class TreeNode(object):
     def __init__(self, value):
         self.value = value
@@ -20,30 +8,7 @@ class TreeNode(object):
     def setRight(self, node):
         self.right = node
 
-A = TreeNode(10)
-B = TreeNode(5)
-C = TreeNode(16)
-D = TreeNode(4)
-E = TreeNode(7)
-F = TreeNode(13)
-G = TreeNode(20)
-
-A.setLeft(B)
-A.setRight(C)
-B.setLeft(D)
-B.setRight(E)
-C.setLeft(F)
-C.setRight(G)
-D.setLeft(None)
-D.setRight(None)
-E.setLeft(None)
-E.setRight(None)
-F.setLeft(None)
-F.setRight(None)
-G.setLeft(None)
-G.setRight(None)
-
-def depthFirstTraversal(node):
+def DepthFirstTraversal(node):
     if node == None:
         return []
     
@@ -61,7 +26,7 @@ def depthFirstTraversal(node):
             stack.append(current.left)
     return nodes
 
-def breadthFirstTraversal(node):
+def BreadthFirstTraversal(node):
     if node == None:
         return []
     
@@ -79,7 +44,7 @@ def breadthFirstTraversal(node):
             queue.append(current.right)
     return nodes
 
-def depthFirstSearch(node, value):
+def DepthFirstSearch(node, value):
     if node == None:
         return False
     
@@ -96,7 +61,7 @@ def depthFirstSearch(node, value):
             stack.append(current.right)
     return False
 
-def breadthFirstSearch(node, value):
+def BreadthFirstSearch(node, value):
     if node == None:
         return False
     
@@ -113,19 +78,19 @@ def breadthFirstSearch(node, value):
             queue.append(current.right)
     return False
 
-def depthFirstSearchRecursive(node, value):
+def DepthFirstSearchRecursive(node, value):
     if node == None:
         return False
     if node.value == value:
         return True
-    return depthFirstSearchRecursive(node.left, value) or depthFirstSearchRecursive(node.right, value)
+    return DepthFirstSearchRecursive(node.left, value) or DepthFirstSearchRecursive(node.right, value)
     
-def treeSumRecursive(node):
+def TreeSumRecursive(node):
     if node == None:
         return 0
-    return node.value + treeSumRecursive(node.left) + treeSumRecursive(node.right) 
+    return node.value + TreeSumRecursive(node.left) + TreeSumRecursive(node.right) 
 
-def treeSumDFS(node):
+def TreeSumDFS(node):
     if node == None:
         return 0
     
@@ -142,7 +107,7 @@ def treeSumDFS(node):
             stack.append(current.right)
     return sum
 
-def treeSumBFS(node):
+def TreeSumBFS(node):
     if node == None:
         return False
 
@@ -158,6 +123,3 @@ def treeSumBFS(node):
         if current.right:
             queue.append(current.right)
     return sum
-
-if __name__ == "__main__":
-    print(depthFirstTraversal(A))

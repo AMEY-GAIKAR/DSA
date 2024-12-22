@@ -1,4 +1,4 @@
-from typing import List
+from typing import List, Dict
 
 class Vertex:
     def __init__(self, key: str) -> None:
@@ -15,9 +15,9 @@ class Vertex:
 
 class Graph:
     def __init__(self, size) -> None:
-        self.Vertices = []
-        self.Names = {} 
-        self.AdjacencyMatrix = [[0] * size for _ in range(size)]
+        self.Vertices: List[str] = []
+        self.Names: Dict[str, int] = {} 
+        self.AdjacencyMatrix: List[List[int]] = [[0] * size for _ in range(size)]
 
     def AddVertex(self, vertex: Vertex) -> None:
         if not self.Vertices.__contains__(vertex.key):
