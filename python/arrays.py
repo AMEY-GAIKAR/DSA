@@ -153,7 +153,16 @@ def CheckRotatedSorted(nums: List[int]) -> bool:
         return False
 
 def FindEvenDigits(nums: List[int]) -> int:
-    pass
+    answer: int = 0
+    digitCount: int = 0
+    for i in range(len(nums)):
+        digit: int = nums[i]
+        while digit > 0:
+            digit //= 10
+            digitCount += 1 
+        if digitCount % 2 == 0:
+            answer += 1
+    return answer
 
 def MaxConsecutiveOnes(nums: List[int]) -> int:
     count: int = 0
@@ -217,14 +226,13 @@ def ContainsDuplicate(nums: List[int]) -> bool:
             return True
     return False
 
-# TODO
-def LeftRotateK(nums: List[int]) -> List[int]:
+def LeftRotateOnce(nums: List[int]) -> List[int]:
     temp: int = nums[0]
     for i in range(len(nums)-1):
         nums[i] = nums[i+1]
     nums[len(nums)-1] = temp
     return nums
-# TODO 
+
 def RightRotateK(nums: List[int], k: int) -> List[int]:
     k = k % len(nums)
     temp: List[int] = [0] * k
