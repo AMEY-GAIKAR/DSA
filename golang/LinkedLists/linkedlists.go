@@ -15,75 +15,75 @@ func Constructor() MyLinkedList {
 }
 
 func (this *MyLinkedList) Get(index int) int {
-    if index < 0 || index >= this.Length {
-        return -1
-    }
-    var current *ListNode = this.Head
-    for i:=0; i<index; i++{
-        current = current.Next
-    }
-    return current.Val
+  if index < 0 || index >= this.Length {
+    return -1
+  }
+  var current *ListNode = this.Head
+  for i:=0; i<index; i++{
+    current = current.Next
+  }
+  return current.Val
 }
 
 func (this *MyLinkedList) AddAtHead(val int)  {
-    if this.Head == nil {
-        this.Head = &ListNode{Val: val}
-        this.Length++
-        return
-    }
-    var second *ListNode = this.Head
-    this.Head = &ListNode{Val: val, Next: second}
+  if this.Head == nil {
+    this.Head = &ListNode{Val: val}
     this.Length++
     return
+  }
+  var second *ListNode = this.Head
+  this.Head = &ListNode{Val: val, Next: second}
+  this.Length++
+  return
 }
 
 func (this *MyLinkedList) AddAtTail(val int)  {
-    if this.Head == nil {
-        this.Head = &ListNode{Val: val}
-        this.Length++
-        return 
-    }
-    var current *ListNode = this.Head
-    for current.Next != nil {
-        current = current.Next
-    }
-    current.Next = &ListNode{Val: val}
+  if this.Head == nil {
+    this.Head = &ListNode{Val: val}
     this.Length++
-    return
+    return 
+  }
+  var current *ListNode = this.Head
+  for current.Next != nil {
+    current = current.Next
+  }
+  current.Next = &ListNode{Val: val}
+  this.Length++
+  return
 }
 
 func (this *MyLinkedList) AddAtIndex(index int, val int)  {
-    if index < 0 || index > this.Length {
-        return
-    }
-    if index == 0 {
-        this.AddAtHead(val)
-        return
-    }
-    var current *ListNode = this.Head
-    for i:=0; i<index-1; i++ {
-        current = current.Next
-    }
-    n := &ListNode{Val: val,Next: current.Next}
-    current.Next = n
-    this.Length++
+  if index < 0 || index > this.Length {
+    return
+  }
+  if index == 0 {
+    this.AddAtHead(val)
+    return
+  }
+  var current *ListNode = this.Head
+  for i := 0; i < index - 1; i++ {
+    current = current.Next
+  }
+  n := &ListNode{Val: val,Next: current.Next}
+  current.Next = n
+  this.Length++
 }
 
 func (this *MyLinkedList) DeleteAtIndex(index int)  {
-    if index < 0 || index >= this.Length {
-        return
-    }
-    if index == 0 {
-        this.Head = this.Head.Next
-        this.Length--
-        return
-    }
-    var current *ListNode = this.Head
-    for i:=0; i<index-1; i++ {
-        current = current.Next
-    }
-    current.Next = current.Next.Next
+  if index < 0 || index >= this.Length {
+    return
+  }
+  if index == 0 {
+    this.Head = this.Head.Next
     this.Length--
+    return
+  }
+  var current *ListNode = this.Head
+  for i := 0; i < index - 1; i++ {
+    current = current.Next
+  }
+  current.Next = current.Next.Next
+  this.Length--
 }
 
 func TraverseList(head *ListNode) []int {
