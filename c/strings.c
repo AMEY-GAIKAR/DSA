@@ -1,14 +1,14 @@
-#include <stdio.h>
-#include <string.h>
-#include <stdbool.h>
 #include <ctype.h>
 #include <malloc.h>
+#include <stdbool.h>
+#include <stdio.h>
+#include <string.h>
 
-char FindDuplicate(char* s) {
+char FindDuplicate(char *s) {
   int c = 0;
   while (s[c] != '\0') {
     for (int i = c + 1; i < strlen(s); i++) {
-      if (s[c] ==  s[i]) {
+      if (s[c] == s[i]) {
         return s[c];
       }
     }
@@ -17,18 +17,19 @@ char FindDuplicate(char* s) {
   return '\0';
 }
 
-bool IsRepeated(char* s) {
+bool IsRepeated(char *s) {
   for (int i = 0; i < strlen(s); i++) {
     for (int j = i + 1; j < strlen(s); j++) {
       if (s[i] == s[j]) {
-        return true;;
+        return true;
+        ;
       }
     }
   }
   return false;
 }
 
-bool IsPalindrome(char* s) {
+bool IsPalindrome(char *s) {
   int i = 0;
   int j = strlen(s) - 1;
   while (i < j) {
@@ -38,7 +39,7 @@ bool IsPalindrome(char* s) {
       j--;
     } else {
       if (tolower(s[i]) != tolower(s[j])) {
-       return false;
+        return false;
       }
       i++;
       j--;
@@ -47,8 +48,8 @@ bool IsPalindrome(char* s) {
   return true;
 }
 
-bool canConstruct(char* ransomNote, char* magazine) {
-  int map[26] ={0};
+bool canConstruct(char *ransomNote, char *magazine) {
+  int map[26] = {0};
   while (*magazine) {
     map[*magazine - 'a']++;
     magazine++;
@@ -77,8 +78,8 @@ void ReverseString(char s[]) {
   }
 }
 
-int* FindWordsContaining(char** words, int wordsSize, char x, int* returnSize) {
-  int* answer = (int*) malloc(sizeof(int) * wordsSize);
+int *FindWordsContaining(char **words, int wordsSize, char x, int *returnSize) {
+  int *answer = (int *)malloc(sizeof(int) * wordsSize);
   int index = 0;
   for (int i = 0; i < wordsSize; i++) {
     for (int j = 0; j < strlen(words[i]); j++) {
@@ -89,24 +90,24 @@ int* FindWordsContaining(char** words, int wordsSize, char x, int* returnSize) {
     }
   }
   *returnSize = index;
-  int* result = (int*) realloc(answer, sizeof(int) * index); 
+  int *result = (int *)realloc(answer, sizeof(int) * index);
   return result;
 }
 
-char** ReverseWords(char s[], int* len) {
-  char** tokens = (char**) malloc((sizeof(char*) * 32));
-  char* token;
+char **ReverseWords(char s[], int *len) {
+  char **tokens = (char **)malloc((sizeof(char *) * 32));
+  char *token;
   int position = 0;
   token = strtok(s, " ");
   while (token != NULL) {
-    tokens[position++] = token; 
+    tokens[position++] = token;
     token = strtok(NULL, " ");
   }
   *len = position;
   int i = 0;
   int j = position - 1;
   while (i <= j) {
-    char* temp = tokens[i];
+    char *temp = tokens[i];
     tokens[i] = tokens[j];
     tokens[j] = temp;
     i++;

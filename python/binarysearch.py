@@ -1,5 +1,6 @@
 from typing import List
 
+
 def BinarySearch(nums: List[int], key: int) -> int:
     start: int = 0
     end: int = len(nums) - 1
@@ -11,11 +12,12 @@ def BinarySearch(nums: List[int], key: int) -> int:
             end = mid - 1
         else:
             start = mid + 1
-    return -1 
+    return -1
+
 
 def BinarySearchRecursive(nums: List[int], key: int, start: int, end: int) -> int:
-    if  end >= start:
-        mid: int = (start + end) // 2 
+    if end >= start:
+        mid: int = (start + end) // 2
         if nums[mid] == key:
             return mid
         elif nums[mid] < key:
@@ -23,6 +25,7 @@ def BinarySearchRecursive(nums: List[int], key: int, start: int, end: int) -> in
         else:
             return BinarySearchRecursive(nums, key, mid + 1, end)
     return -1
+
 
 def BinarySearch2D(matrix: List[List[int]], target: int) -> int:
     rows: int = len(matrix)
@@ -39,6 +42,7 @@ def BinarySearch2D(matrix: List[List[int]], target: int) -> int:
             start = mid + 1
     return -1
 
+
 def SearchInsertPosition(nums: List[int], key: int) -> int:
     start: int = 0
     end: int = len(nums) - 1
@@ -52,6 +56,7 @@ def SearchInsertPosition(nums: List[int], key: int) -> int:
             start = mid + 1
     return position
 
+
 def LowerBound(nums: List[int], key: int) -> int:
     end: int = len(nums) - 1
     start: int = 0
@@ -64,6 +69,7 @@ def LowerBound(nums: List[int], key: int) -> int:
         else:
             start = mid + 1
     return position
+
 
 def Sqrt(x: int) -> int:
     if x == 0:

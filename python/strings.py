@@ -1,18 +1,21 @@
 from typing import List
 
+
 def reverseWords(s: str) -> str:
     reverse: str = ""
     words: List[str] = s.split(" ")
-    for i in range(len(words)-1, -1, -1):
+    for i in range(len(words) - 1, -1, -1):
         reverse += " "
         reverse += words[i]
     return reverse
 
+
 def largestOddNumber(nums: str) -> str:
-    for i in range(len(nums)-1, -1, -1):
+    for i in range(len(nums) - 1, -1, -1):
         if int(nums[i]) % 2 != 0:
-            return nums[0:i+1]
+            return nums[0 : i + 1]
     return ""
+
 
 def canConstruct(ransomNote: str, magazine: str) -> bool:
     bag: dict[str, int] = {}
@@ -28,6 +31,7 @@ def canConstruct(ransomNote: str, magazine: str) -> bool:
             bag[s] -= 1
     return True
 
+
 def mergeAlternately(s1: str, s2: str) -> str:
     newStr: str = ""
     i: int = 0
@@ -39,13 +43,15 @@ def mergeAlternately(s1: str, s2: str) -> str:
         i += 1
     return newStr
 
+
 def reverseString(s: List[str]) -> None:
-    for i in range(len(s)//2):
-        s[i], s[len(s)-i-1] = s[len(s)-i-1], s[i]
+    for i in range(len(s) // 2):
+        s[i], s[len(s) - i - 1] = s[len(s) - i - 1], s[i]
+
 
 def reverseVowels(word: str) -> str:
     s: List[str] = list(word)
-    vowels: str = "aeiouAEIOU" 
+    vowels: str = "aeiouAEIOU"
     i: int = 0
     j: int = len(s) - 1
     while i <= j:
@@ -59,6 +65,7 @@ def reverseVowels(word: str) -> str:
             j -= 1
     return "".join(s)
 
+
 def removeStars(s: str) -> str:
     res: List[str] = []
     i: int = 0
@@ -69,6 +76,7 @@ def removeStars(s: str) -> str:
             res.pop(-1)
         i += 1
     return "".join(res)
+
 
 def isPalindrome(s: str) -> bool:
     ls: List[str] = list(s.lower())

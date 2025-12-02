@@ -1,22 +1,22 @@
-#include <stdbool.h>
 #include <malloc.h>
+#include <stdbool.h>
 
 struct ListNode {
-  int val;
-  struct ListNode* next;
+    int val;
+    struct ListNode *next;
 };
 
-void RemoveNode(struct ListNode* node) {
-    node->val = node->next->val;
-    node->next = node->next->next;
+void RemoveNode(struct ListNode *node) {
+  node->val = node->next->val;
+  node->next = node->next->next;
 }
 
-struct ListNode* RemoveElements(struct ListNode* head, int key) {
+struct ListNode *RemoveElements(struct ListNode *head, int key) {
   if (head == NULL) {
     return NULL;
   }
-  struct ListNode* current = head;
-  struct ListNode* prev = NULL;
+  struct ListNode *current = head;
+  struct ListNode *prev = NULL;
   while (current != NULL) {
     if (current->val == key) {
       if (prev == NULL) {
@@ -33,9 +33,9 @@ struct ListNode* RemoveElements(struct ListNode* head, int key) {
   return head;
 }
 
-struct ListNode* MiddleNodeI(struct ListNode* head) {
-  struct ListNode* fast = head;
-  struct ListNode* slow = head;
+struct ListNode *MiddleNodeI(struct ListNode *head) {
+  struct ListNode *fast = head;
+  struct ListNode *slow = head;
   while (fast != NULL && fast->next != NULL) {
     fast = fast->next->next;
     slow = slow->next;
@@ -43,9 +43,9 @@ struct ListNode* MiddleNodeI(struct ListNode* head) {
   return slow;
 }
 
-struct ListNode* MiddleNodeII(struct ListNode* head) {
-  struct ListNode* current = head;
-  struct ListNode* middle = head;
+struct ListNode *MiddleNodeII(struct ListNode *head) {
+  struct ListNode *current = head;
+  struct ListNode *middle = head;
   int i = 0;
   while (current->next != NULL) {
     current = current->next;
@@ -60,14 +60,14 @@ struct ListNode* MiddleNodeII(struct ListNode* head) {
   return middle->next;
 }
 
-struct ListNode* ReverseList(struct ListNode* head) {
+struct ListNode *ReverseList(struct ListNode *head) {
   if (head == NULL || head->next == NULL) {
     return head;
   }
-  struct ListNode* current = head;
-  struct ListNode* prev = NULL;
+  struct ListNode *current = head;
+  struct ListNode *prev = NULL;
   while (current->next != NULL) {
-    struct ListNode* temp = current->next;
+    struct ListNode *temp = current->next;
     current->next = prev;
     prev = current;
     current = temp;
@@ -76,9 +76,9 @@ struct ListNode* ReverseList(struct ListNode* head) {
   return current;
 }
 
-bool HasCycle(struct ListNode* head) {
-  struct ListNode* fast = head;
-  struct ListNode* slow = head;
+bool HasCycle(struct ListNode *head) {
+  struct ListNode *fast = head;
+  struct ListNode *slow = head;
   while (fast != NULL && fast->next != NULL) {
     fast = fast->next->next;
     slow = slow->next;
@@ -89,9 +89,9 @@ bool HasCycle(struct ListNode* head) {
   return false;
 }
 
-struct ListNode* DetectCycle(struct ListNode* head) {
-  struct ListNode* fast = head;
-  struct ListNode* slow = head;
+struct ListNode *DetectCycle(struct ListNode *head) {
+  struct ListNode *fast = head;
+  struct ListNode *slow = head;
   while (fast != NULL && fast->next != NULL) {
     fast = fast->next->next;
     slow = slow->next;
@@ -107,13 +107,13 @@ struct ListNode* DetectCycle(struct ListNode* head) {
   return NULL;
 }
 
-struct ListNode* MergeTwoLists(struct ListNode* list1, struct ListNode* list2) {
-  struct ListNode* p1 = list1;
-  struct ListNode* p2 = list2;
-  struct ListNode* newHead = (struct ListNode*) malloc(sizeof(struct ListNode));
+struct ListNode *MergeTwoLists(struct ListNode *list1, struct ListNode *list2) {
+  struct ListNode *p1 = list1;
+  struct ListNode *p2 = list2;
+  struct ListNode *newHead = (struct ListNode *)malloc(sizeof(struct ListNode));
   newHead->val = 0;
   newHead->next = NULL;
-  struct ListNode* ptr = newHead;
+  struct ListNode *ptr = newHead;
   while (p1 != NULL && p2 != NULL) {
     if (p1->val < p2->val) {
       ptr->next = p1;
@@ -132,12 +132,12 @@ struct ListNode* MergeTwoLists(struct ListNode* list1, struct ListNode* list2) {
   return newHead->next;
 }
 
-struct ListNode* RemoveDuplicates(struct ListNode* head) {
+struct ListNode *RemoveDuplicates(struct ListNode *head) {
   if (head == NULL) {
     return head;
   }
-  struct ListNode* current = head;
-  struct ListNode* prev = head;
+  struct ListNode *current = head;
+  struct ListNode *prev = head;
   int currentVal = head->val;
   while (current != NULL) {
     if (current->val == currentVal) {
@@ -153,18 +153,17 @@ struct ListNode* RemoveDuplicates(struct ListNode* head) {
 }
 
 /*
-struct ListNode *getIntersectionNode(struct ListNode *headA, struct ListNode *headB) {
-    struct ListNode *p=headA,*q=headB;
-    while (p!=q){
-        p=(p==NULL) ? headB : p->next;
-        q=(q==NULL) ? headA : q->next;
+struct ListNode *getIntersectionNode(struct ListNode *headA, struct ListNode
+*headB) { struct ListNode *p=headA,*q=headB; while (p!=q){ p=(p==NULL) ? headB :
+p->next; q=(q==NULL) ? headA : q->next;
     }
     return p;
 }
 */
-struct ListNode* IntersectionOfLists(struct ListNode* headA, struct ListNode* headB) {
-  struct ListNode* p1 = headA;
-  struct ListNode* p2 = headB;
+struct ListNode *IntersectionOfLists(struct ListNode *headA,
+                                     struct ListNode *headB) {
+  struct ListNode *p1 = headA;
+  struct ListNode *p2 = headB;
   while (p1 != NULL) {
     while (p2 != NULL && p1 != p2) {
       p2 = p2->next;
@@ -178,13 +177,13 @@ struct ListNode* IntersectionOfLists(struct ListNode* headA, struct ListNode* he
   return NULL;
 }
 
-int GetDecimalValue(struct ListNode* head) {
+int GetDecimalValue(struct ListNode *head) {
   int decimal = 0;
   int buffSize = 8;
-  int* binary = (int*) malloc(sizeof(int) * buffSize);
+  int *binary = (int *)malloc(sizeof(int) * buffSize);
   int idx = 0;
   int power = 1;
-  struct ListNode* current = head;
+  struct ListNode *current = head;
   while (current != NULL) {
     binary[idx++] = current->val;
     if (idx >= buffSize) {
@@ -200,11 +199,11 @@ int GetDecimalValue(struct ListNode* head) {
   return decimal;
 }
 
-bool PalindromeList(struct ListNode* head) {
+bool PalindromeList(struct ListNode *head) {
   int buffSize = 8;
-  int* buffer = malloc(sizeof(int) * buffSize);
+  int *buffer = malloc(sizeof(int) * buffSize);
   int idx = 0;
-  struct ListNode* current = head;
+  struct ListNode *current = head;
   while (current != NULL) {
     buffer[idx++] = current->val;
     if (idx >= buffSize) {

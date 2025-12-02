@@ -1,13 +1,16 @@
 from typing import List
 
+
 class ListNode:
-   def __init__(self, val=0, next=None):
+    def __init__(self, val=0, next=None):
         self.val = val
         self.next = next
+
 
 def deleteNode(node: ListNode) -> None:
     node.val = node.next.val
     node.next = node.next.next
+
 
 def getLength(head: ListNode) -> int:
     count: int = 0
@@ -17,6 +20,7 @@ def getLength(head: ListNode) -> int:
         current = current.next
     return count
 
+
 def searchKey(head: ListNode, key: int) -> bool:
     current: ListNode | None = head
     while current:
@@ -24,6 +28,7 @@ def searchKey(head: ListNode, key: int) -> bool:
             return True
         current = current.next
     return False
+
 
 def insertAtEnd(head: ListNode, val: int) -> ListNode:
     node: ListNode = ListNode(val=val)
@@ -34,6 +39,7 @@ def insertAtEnd(head: ListNode, val: int) -> ListNode:
         current = current.next
     current.next = node
     return head
+
 
 def arrayToLinkedList(nums: List[int]) -> ListNode | None:
     if len(nums) == 0:
@@ -46,10 +52,11 @@ def arrayToLinkedList(nums: List[int]) -> ListNode | None:
         prev = node
     return head
 
+
 def traverseList(head: ListNode) -> list[int]:
     """
     Set a pointer(current) to the head and iteratively assign the pointer
-    to the next node until the end of the list is reached ie. a null 
+    to the next node until the end of the list is reached ie. a null
     pointer is set to current.
     Time Complexity: O(n)
     Space Complexity: O(1)
@@ -61,6 +68,7 @@ def traverseList(head: ListNode) -> list[int]:
         current = current.next
     return elements
 
+
 def reverseList(head) -> ListNode:
     current: ListNode = head
     prev: ListNode | None = None
@@ -70,7 +78,8 @@ def reverseList(head) -> ListNode:
         prev = current
         current = temp
     current.next = prev
-    return current 
+    return current
+
 
 def middleNode(head: ListNode) -> ListNode:
     current: ListNode = head
@@ -85,6 +94,7 @@ def middleNode(head: ListNode) -> ListNode:
         return middle
     return middle.next
 
+
 def middleNode_II(head: ListNode) -> ListNode | None:
     if not head:
         return None
@@ -95,21 +105,23 @@ def middleNode_II(head: ListNode) -> ListNode | None:
         slow = slow.next
     return slow
 
+
 def deleteMiddle(head: ListNode) -> ListNode:
-        current: ListNode = head
-        middle: ListNode = head
-        prev: ListNode = head
-        l: int = -1
-        if current.next == None:
-            return None
-        while current.next != None:
-            l += 1
-            current = current.next
-            if l % 2 == 0:
-                prev = middle
-                middle = middle.next
-        prev.next = middle.next
-        return head
+    current: ListNode = head
+    middle: ListNode = head
+    prev: ListNode = head
+    l: int = -1
+    if current.next == None:
+        return None
+    while current.next != None:
+        l += 1
+        current = current.next
+        if l % 2 == 0:
+            prev = middle
+            middle = middle.next
+    prev.next = middle.next
+    return head
+
 
 def removeDuplicates(head: ListNode) -> ListNode:
     current: ListNode = head
@@ -124,6 +136,7 @@ def removeDuplicates(head: ListNode) -> ListNode:
             prev = current
         current = current.next
     return head
+
 
 def removeElements(head: ListNode, val: int) -> ListNode:
     current: ListNode | None = head
@@ -140,6 +153,7 @@ def removeElements(head: ListNode, val: int) -> ListNode:
             current = current.next
     return head
 
+
 def hasCycle(head: ListNode) -> bool:
     fast: ListNode = head
     slow: ListNode = head
@@ -149,6 +163,7 @@ def hasCycle(head: ListNode) -> bool:
         if fast == slow:
             return True
     return False
+
 
 def getIntersectionNode(headA: ListNode, headB: ListNode) -> ListNode | None:
     p1: ListNode | None = headA
@@ -160,6 +175,7 @@ def getIntersectionNode(headA: ListNode, headB: ListNode) -> ListNode | None:
             p2 = p2.next
         p1 = p1.next
     return None
+
 
 def getIntersectionNodeII(headA: ListNode, headB: ListNode) -> ListNode | None:
     check: set[ListNode] = set()
@@ -173,6 +189,7 @@ def getIntersectionNodeII(headA: ListNode, headB: ListNode) -> ListNode | None:
             return current
         current = current.next
     return None
+
 
 def removeNthNode(head: ListNode, n: int) -> ListNode:
     fast: ListNode = head
@@ -189,6 +206,7 @@ def removeNthNode(head: ListNode, n: int) -> ListNode:
     slow.next = slow.next.next
     return head
 
+
 def reverseListRecursive(head: ListNode) -> ListNode:
     if not head:
         return None
@@ -198,6 +216,7 @@ def reverseListRecursive(head: ListNode) -> ListNode:
         head.next.next = head
     head.next = None
     return newHead
+
 
 def palindromeLLI(head: ListNode) -> bool:
     elements: List[int] = []
@@ -214,8 +233,9 @@ def palindromeLLI(head: ListNode) -> bool:
         j -= 1
     return True
 
+
 def palindromeLLII(head: ListNode):
-    rev : ListNode = reverseList(middleNode_II(head))
+    rev: ListNode = reverseList(middleNode_II(head))
     curr: ListNode = head
     while curr.next:
         if curr.val != rev.val:
@@ -223,6 +243,7 @@ def palindromeLLII(head: ListNode):
         rev = rev.next
         curr = curr.next
     return True
+
 
 def rotateRight(head: ListNode, k: int) -> ListNode:
     if not head or k == 0:
@@ -238,7 +259,7 @@ def rotateRight(head: ListNode, k: int) -> ListNode:
     if places == 0:
         return head
     last: ListNode = head
-    for _ in range(length-places-1):
+    for _ in range(length - places - 1):
         last = last.next
     newHead: ListNode = last.next
     last.next = None
@@ -250,6 +271,7 @@ def rotateRight(head: ListNode, k: int) -> ListNode:
     current.next = head
     return newHead
 
+
 def getDecimalValue(head: ListNode) -> int:
     current: ListNode = head
     elements: List[int] = []
@@ -258,10 +280,11 @@ def getDecimalValue(head: ListNode) -> int:
     while current:
         elements.append(current.val)
         current = current.next
-    for i in range(len(elements)-1, -1, -1):
+    for i in range(len(elements) - 1, -1, -1):
         decimal += elements[i] * power
         power *= 2
     return decimal
+
 
 def addTwoNumbers(l1: ListNode, l2: ListNode) -> ListNode:
     carry: int = 0
@@ -271,10 +294,10 @@ def addTwoNumbers(l1: ListNode, l2: ListNode) -> ListNode:
     c2: ListNode = l2
     while c1 and c2:
         sum = c1.val + c2.val + carry
-        n = ListNode(val=(sum)%10)
+        n = ListNode(val=(sum) % 10)
         tail.next = n
         tail = n
-        carry = sum//10
+        carry = sum // 10
         c1 = c1.next
         c2 = c2.next
     if not c1 and not c2 and carry == 1:
@@ -282,8 +305,8 @@ def addTwoNumbers(l1: ListNode, l2: ListNode) -> ListNode:
     if c1:
         while c1:
             sum = c1.val + carry
-            n = ListNode(val=(sum)%10)
-            carry = sum//10
+            n = ListNode(val=(sum) % 10)
+            carry = sum // 10
             tail.next = n
             tail = n
             c1 = c1.next
@@ -292,14 +315,15 @@ def addTwoNumbers(l1: ListNode, l2: ListNode) -> ListNode:
     elif c2:
         while c2:
             sum = c2.val + carry
-            n = ListNode(val=(sum)%10)
-            carry = sum//10
+            n = ListNode(val=(sum) % 10)
+            carry = sum // 10
             tail.next = n
             tail = n
             c2 = c2.next
         if carry == 1:
             tail.next = ListNode(1)
     return result.next
+
 
 if __name__ == "__main__":
     print()

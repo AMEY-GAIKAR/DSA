@@ -47,9 +47,9 @@ long long NthPrime(int n) {
   return prime;
 }
 
-int* PrimeFactors(int n, int* returSize) {
+int *PrimeFactors(int n, int *returSize) {
   int buffSize = 8;
-  int* buffer = (int*) malloc(sizeof(int) * buffSize);
+  int *buffer = (int *)malloc(sizeof(int) * buffSize);
   int idx = 0;
   for (int i = 2; i <= n; i++) {
     if (n % i == 0) {

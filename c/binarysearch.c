@@ -17,7 +17,8 @@ int BinarySearch(int array[], size_t size, int key) {
   return -1;
 }
 
-int BinarySearchRecursive(int nums[], size_t size, int start, int end, int key) {
+int BinarySearchRecursive(int nums[], size_t size, int start, int end,
+                          int key) {
   int mid = (start + end) / 2;
   if (nums[mid] == key) {
     return mid;
@@ -29,14 +30,16 @@ int BinarySearchRecursive(int nums[], size_t size, int start, int end, int key) 
   return -1;
 }
 
-bool BinarySearch2D(int** matrix, int matrixSize, int* matrixColSize, int target) {
+bool BinarySearch2D(int **matrix, int matrixSize, int *matrixColSize,
+                    int target) {
   int start = 0;
   int end = matrixSize * (*matrixColSize) - 1;
   while (start <= end) {
     int mid = (start + end) / 2;
     if (matrix[mid / *(matrixColSize)][mid % *(matrixColSize)] == target) {
       return true;
-    } else if (matrix[mid / *(matrixColSize)][mid % *(matrixColSize)] > target) {
+    } else if (matrix[mid / *(matrixColSize)][mid % *(matrixColSize)] >
+               target) {
       end = mid - 1;
     } else {
       start = mid + 1;
@@ -87,7 +90,7 @@ int Sqrt(int x) {
   while (start <= end) {
     int mid = (start + end) / 2;
     if (mid * mid == x) {
-      return mid; 
+      return mid;
     } else if (mid * mid < x) {
       start = mid + 1;
       answer = mid;

@@ -30,24 +30,24 @@ void SlideWindow(int nums[], size_t size, int new) {
   nums[size - 1] = new;
 }
 
-void ViewWindowK(int nums[], size_t size,int k) {
+void ViewWindowK(int nums[], size_t size, int k) {
   if (k <= 0 || k > size) {
     return;
   }
   int sum = 0;
-  int* window = (int*) malloc(sizeof(int) * k);
+  int *window = (int *)malloc(sizeof(int) * k);
   for (int i = 0; i < k; i++) {
     window[i] = nums[i];
   }
   PrintArray(window, k);
   for (int i = k; i < size; i++) {
-    SlideWindow(window, k, nums[i]); 
+    SlideWindow(window, k, nums[i]);
     PrintArray(window, k);
   }
 }
 
-int* WindowSum(int nums[], size_t size, int k, int* returnSize) {
-  int* answer = (int*) malloc(sizeof(int));
+int *WindowSum(int nums[], size_t size, int k, int *returnSize) {
+  int *answer = (int *)malloc(sizeof(int));
   int left = 0;
   int right = k - 1;
   int wSum = 0;
@@ -69,15 +69,15 @@ int* WindowSum(int nums[], size_t size, int k, int* returnSize) {
   return answer;
 }
 
-float* WindowMean(int nums[], size_t size, int k, int* returnSize) {
-  float* answer = (float*) malloc(sizeof(float));
+float *WindowMean(int nums[], size_t size, int k, int *returnSize) {
+  float *answer = (float *)malloc(sizeof(float));
   int left = 0;
   int right = k - 1;
   int wSum = 0;
   for (int i = 0; i < k; i++) {
     wSum += nums[i];
   }
-  answer[0] = (float) wSum / k;
+  answer[0] = (float)wSum / k;
   int index = 1;
   while (right < size) {
     wSum -= nums[left];
@@ -85,7 +85,7 @@ float* WindowMean(int nums[], size_t size, int k, int* returnSize) {
     right++;
     wSum += nums[right];
     answer = realloc(answer, sizeof(float) * index + 1);
-    answer[index] = (float) wSum / k;
+    answer[index] = (float)wSum / k;
     index++;
   }
   *returnSize = index - 1;
@@ -102,12 +102,12 @@ int MaxSubArraySubI(int nums[], size_t size) {
   return answer;
 }
 
-int* MaxSubArraySumII(int nums[], size_t size, int* returnSize) {
+int *MaxSubArraySumII(int nums[], size_t size, int *returnSize) {
   int sum = 0;
   int max = 0;
   int start = 0;
   int end = 0;
-  int* answer = (int*) malloc(sizeof(int) * 2);
+  int *answer = (int *)malloc(sizeof(int) * 2);
   *returnSize = 2;
   for (int i = 0; i < size; i++) {
     if (sum == 0) {
@@ -165,11 +165,11 @@ int LongestSubArrayWithSumI(int nums[], size_t size, int k) {
   return answer;
 }
 
-int* LongestSubArrayWithSumII(int nums[], size_t size, int k, int* returnSize) {
+int *LongestSubArrayWithSumII(int nums[], size_t size, int k, int *returnSize) {
   int i = 0;
   int sum = 0;
   *returnSize = 2;
-  int* answer = (int*) malloc(sizeof(int) * 2);
+  int *answer = (int *)malloc(sizeof(int) * 2);
   for (int j = 0; j < size; j++) {
     sum += nums[j];
     if (sum == k) {
@@ -198,7 +198,7 @@ int SubArraysWithSumPositives(int nums[], size_t size, int k) {
     sum += nums[i];
     if (sum == k) {
       answer++;
-      }
+    }
     while (sum > k && j < i) {
       sum -= nums[j];
       j++;
@@ -210,9 +210,9 @@ int SubArraysWithSumPositives(int nums[], size_t size, int k) {
   return answer;
 }
 
-int* TwoSumII(int nums[], size_t size, int target, int* returnSize) {
+int *TwoSumII(int nums[], size_t size, int target, int *returnSize) {
   *returnSize = 2;
-  int* answer = (int*) malloc(sizeof(int) * (*returnSize));
+  int *answer = (int *)malloc(sizeof(int) * (*returnSize));
   answer[0] = -1;
   answer[1] = -1;
   int left = 0;
@@ -232,10 +232,10 @@ int* TwoSumII(int nums[], size_t size, int target, int* returnSize) {
 }
 
 int main() {
-  int nums[8] = {1,2,3,4,5,6,7,8};
+  int nums[8] = {1, 2, 3, 4, 5, 6, 7, 8};
   size_t size = 8;
   int returnSize;
-  int* answer = LongestSubArrayWithSumII(nums, size, 11, &returnSize);
+  int *answer = LongestSubArrayWithSumII(nums, size, 11, &returnSize);
   printf("%d %d\n", answer[0], answer[1]);
   printf("%d\n", LongestSubArrayWithSumI(nums, size, 11));
   return 0;

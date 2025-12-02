@@ -1,13 +1,13 @@
-#include <stdio.h>
-#include <stdlib.h>
-#include <stdbool.h>
 #include <limits.h>
 #include <malloc.h>
+#include <stdbool.h>
+#include <stdio.h>
+#include <stdlib.h>
 
 int maxInt(int a, int b) {
   if (a > b) {
     return a;
-  } 
+  }
   return b;
 }
 
@@ -31,11 +31,11 @@ void Reverse(int nums[], size_t size) {
 }
 
 struct CounterItem {
-  int Item;
-  int Count;
+    int Item;
+    int Count;
 };
 
-bool SearchCounter(struct CounterItem* counter, int cSize, int key) {
+bool SearchCounter(struct CounterItem *counter, int cSize, int key) {
   for (int i = 0; i < cSize; i++) {
     if (counter[i].Item == key) {
       return true;
@@ -44,7 +44,7 @@ bool SearchCounter(struct CounterItem* counter, int cSize, int key) {
   return false;
 }
 
-void AddCounterItem(struct CounterItem** counter, int* cSize, int key) {
+void AddCounterItem(struct CounterItem **counter, int *cSize, int key) {
   *counter = realloc(*counter, (*cSize + 1) * sizeof(struct CounterItem));
   if (*counter == NULL) {
     exit(EXIT_FAILURE);
@@ -54,7 +54,7 @@ void AddCounterItem(struct CounterItem** counter, int* cSize, int key) {
   (*cSize)++;
 }
 
-void IncrementCounter(struct CounterItem* counter, int cSize, int key) {
+void IncrementCounter(struct CounterItem *counter, int cSize, int key) {
   for (int i = 0; i < cSize; i++) {
     if (counter[i].Item == key) {
       counter[i].Count++;
@@ -62,8 +62,9 @@ void IncrementCounter(struct CounterItem* counter, int cSize, int key) {
   }
 }
 
-struct CounterItem* CreateCounter(int nums[], size_t size, int* cSize) {
-  struct CounterItem* counter = (struct CounterItem*) malloc(sizeof(struct CounterItem));
+struct CounterItem *CreateCounter(int nums[], size_t size, int *cSize) {
+  struct CounterItem *counter =
+      (struct CounterItem *)malloc(sizeof(struct CounterItem));
   *cSize = 0;
   for (int i = 0; i < size; i++) {
     if (SearchCounter(counter, *cSize, nums[i]) == true) {
@@ -84,8 +85,8 @@ int LinearSearch(int nums[], size_t size, int key) {
   return -1;
 }
 
-int* SearchRange(int nums[], size_t size, int key, int* returnSize) {
-  int* answer = (int*) malloc(sizeof(int) * 2);
+int *SearchRange(int nums[], size_t size, int key, int *returnSize) {
+  int *answer = (int *)malloc(sizeof(int) * 2);
   *returnSize = 2;
   answer[0] = -1;
   answer[1] = -1;
@@ -95,7 +96,7 @@ int* SearchRange(int nums[], size_t size, int key, int* returnSize) {
       break;
     }
   }
-  for (int j = size-1; j > 0; j--) {
+  for (int j = size - 1; j > 0; j--) {
     if (nums[j] == key) {
       answer[1] = j;
       break;
@@ -108,7 +109,7 @@ int FindHighestFrequency(int nums[], size_t size) {
   int answer, count;
   count = INT_MIN;
   int cSize = 0;
-  struct CounterItem* c = CreateCounter(nums, size, &cSize);
+  struct CounterItem *c = CreateCounter(nums, size, &cSize);
   for (int i = 0; i < cSize; i++) {
     if (c[i].Count > count) {
       answer = c[i].Item;
@@ -122,7 +123,7 @@ int FindLowestFrequency(int nums[], size_t size) {
   int answer, count;
   count = INT_MAX;
   int cSize = 0;
-  struct CounterItem* c = CreateCounter(nums, size, &cSize);
+  struct CounterItem *c = CreateCounter(nums, size, &cSize);
   for (int i = 0; i < cSize; i++) {
     if (c[i].Count < count) {
       answer = c[i].Item;
@@ -180,10 +181,10 @@ int FindSecondSmallest(int nums[], size_t size) {
   return secondSmallest;
 }
 
-int* Leaders(int nums[], size_t size, int* returnSize) {
-  int* answer = (int*) malloc(sizeof(int) * size);
+int *Leaders(int nums[], size_t size, int *returnSize) {
+  int *answer = (int *)malloc(sizeof(int) * size);
   int max = nums[size - 1];
-  answer[0] = max; 
+  answer[0] = max;
   int index = 1;
   for (int i = size - 2; i >= 0; i--) {
     if (nums[i] >= max) {
@@ -199,13 +200,13 @@ int* Leaders(int nums[], size_t size, int* returnSize) {
 
 int FindSingleI(int nums[], size_t size) {
   int cSize = 0;
-  struct CounterItem* c = CreateCounter(nums, size, &cSize);
+  struct CounterItem *c = CreateCounter(nums, size, &cSize);
   for (int i = 0; i < cSize; i++) {
     if (c[i].Count == 1) {
       return c[i].Item;
     }
   }
-  return 0; 
+  return 0;
 }
 
 int FindSingleII(int nums[], size_t size) {
@@ -218,7 +219,7 @@ int FindSingleII(int nums[], size_t size) {
 
 bool CheckSorted(int nums[], size_t size) {
   for (int i = 0; i < size - 1; i++) {
-    if (nums[i] > nums[i+1]) {
+    if (nums[i] > nums[i + 1]) {
       return false;
     }
   }
@@ -228,7 +229,7 @@ bool CheckSorted(int nums[], size_t size) {
 bool CheckRotatedSorted(int nums[], size_t size) {
   int count = 0;
   for (int i = 1; i < size; i++) {
-    if (nums[i] < nums[i-1]) {
+    if (nums[i] < nums[i - 1]) {
       count++;
     }
   }
@@ -277,20 +278,20 @@ int FindMissing(int nums[], size_t size) {
   return n * (n + 1) / 2 - sum;
 }
 
-int* TwoSumI(int nums[], size_t size, int target, int* returnSize) {
-  int* answer = (int*) malloc(sizeof(int) * 2);
+int *TwoSumI(int nums[], size_t size, int target, int *returnSize) {
+  int *answer = (int *)malloc(sizeof(int) * 2);
   *returnSize = 2;
   answer[0] = -1;
   answer[1] = -1;
   for (int i = 0; i < size; i++) {
-    for (int j = i+1; j < size; j++) {
+    for (int j = i + 1; j < size; j++) {
       if (nums[i] + nums[j] == target) {
         answer[0] = nums[i];
         answer[1] = nums[j];
         return answer;
       }
     }
-  }  
+  }
   return answer;
 }
 
@@ -302,7 +303,7 @@ int RemoveDuplicates(int nums[], size_t size) {
       nums[i] = nums[j];
     }
   }
-  return i+1;
+  return i + 1;
 }
 
 int RemoveZeros(int nums[], size_t size) {
@@ -315,12 +316,12 @@ int RemoveZeros(int nums[], size_t size) {
       i++;
     }
   }
-  return i+1;
-} 
+  return i + 1;
+}
 
 bool ContainsDuplicates(int nums[], size_t size) {
   int cSize = 0;
-  struct CounterItem* c = CreateCounter(nums, size, &cSize);
+  struct CounterItem *c = CreateCounter(nums, size, &cSize);
   for (int i = 0; i < cSize; i++) {
     if (c[i].Count > 1) {
       return true;
@@ -425,10 +426,10 @@ int MajorityElementI(int nums[], size_t size) {
   return element;
 }
 
-int* MajorityElementII(int nums[], size_t size, int* returnSize) {
+int *MajorityElementII(int nums[], size_t size, int *returnSize) {
   int c1 = 0;
   int c2 = 0;
-  int e1= 0;
+  int e1 = 0;
   int e2 = 0;
   for (int i = 0; i < size; i++) {
     if (nums[i] == e1) {
@@ -455,7 +456,7 @@ int* MajorityElementII(int nums[], size_t size, int* returnSize) {
       c2++;
     }
   }
-  int* answer = (int*)malloc(sizeof(int) * 2);
+  int *answer = (int *)malloc(sizeof(int) * 2);
   *returnSize = 0;
   if (c1 > size / 3) {
     answer[(*returnSize)++] = e1;
@@ -476,7 +477,7 @@ int MaxSubarraySumI(int nums[], size_t size) {
   return globalSum;
 }
 
-int* MaxSubarraySumII(int nums[], size_t size, int* returnSize) {
+int *MaxSubarraySumII(int nums[], size_t size, int *returnSize) {
   int globalSum = INT_MIN;
   int localSum = 0;
   int start = 0;
@@ -495,13 +496,13 @@ int* MaxSubarraySumII(int nums[], size_t size, int* returnSize) {
       localSum = 0;
     }
   }
-  int* answer = (int*) malloc(sizeof(int) * 2);
+  int *answer = (int *)malloc(sizeof(int) * 2);
   answer[0] = start;
   answer[1] = end;
   return answer;
 }
 
-int MaxProfit(int* prices, int pricesSize) {
+int MaxProfit(int *prices, int pricesSize) {
   int diff = -1;
   int min = INT_MAX;
   for (int i = 0; i < pricesSize; i++) {
@@ -511,8 +512,8 @@ int MaxProfit(int* prices, int pricesSize) {
   return diff;
 }
 
-int* RearrangeBySign(int* nums, int size, int* returnSize) {
-  int* answer = (int*) malloc(sizeof(int) * size);
+int *RearrangeBySign(int *nums, int size, int *returnSize) {
+  int *answer = (int *)malloc(sizeof(int) * size);
   *returnSize = size;
   int positive = 0;
   int negative = 1;
@@ -522,7 +523,7 @@ int* RearrangeBySign(int* nums, int size, int* returnSize) {
       positive += 2;
     } else {
       answer[negative] = nums[i];
-      negative += 2; 
+      negative += 2;
     }
   }
   return answer;

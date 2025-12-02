@@ -1,10 +1,12 @@
 from typing import List
 
+
 class ListNode:
     def __init__(self, val, next=None, prev=None) -> None:
         self.val = val
         self.next = next
         self.prev = prev
+
 
 def addNodeAtIndex(head: ListNode, position: int, val: int) -> ListNode:
     node: ListNode = ListNode(val=val)
@@ -16,7 +18,8 @@ def addNodeAtIndex(head: ListNode, position: int, val: int) -> ListNode:
         current.next.prev = node
     current.next = node
     node.prev = current
-    return head 
+    return head
+
 
 def deleteNodeAtIndex(head: ListNode, position: int) -> ListNode | None:
     current: ListNode = head
@@ -26,7 +29,7 @@ def deleteNodeAtIndex(head: ListNode, position: int) -> ListNode | None:
         head = head.next
         head.prev = None
         return head
-    for _ in range(position-1-1):
+    for _ in range(position - 1 - 1):
         current = current.next
     if not current.next or not current.next.next:
         current.next = None
@@ -34,6 +37,7 @@ def deleteNodeAtIndex(head: ListNode, position: int) -> ListNode | None:
     current.next.next.prev = current
     current.next = current.next.next
     return head
+
 
 def reverseDLL(head: ListNode) -> ListNode:
     if not head.next:
@@ -46,6 +50,7 @@ def reverseDLL(head: ListNode) -> ListNode:
         current.next = prev
         current = current.prev
     return prev.prev
+
 
 def constructDLL(nums: List[int]) -> ListNode:
     head: ListNode = ListNode(val=nums[0])

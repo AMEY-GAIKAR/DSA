@@ -1,6 +1,6 @@
 #include <stdio.h>
 
-void PrintN(char* str, int n) {
+void PrintN(char *str, int n) {
   if (n == 1) {
     return;
   } else {

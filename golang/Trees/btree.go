@@ -38,7 +38,7 @@ func BreadthFirstTraversalII(root *TreeNode) [][]int {
 	queue = append(queue, root)
 	for len(queue) != 0 {
 		var base int = len(queue)
-		var level = []int{}
+		level := []int{}
 		for i := 0; i < base; i++ {
 			var node *TreeNode = queue[0]
 			queue = queue[1:]
@@ -64,7 +64,7 @@ func BreadthFirstTraversalIII(root *TreeNode) [][]int {
 	queue = append(queue, root)
 	for len(queue) != 0 {
 		var base int = len(queue)
-		var level = []int{}
+		level := []int{}
 		for i := 0; i < base; i++ {
 			var node *TreeNode = queue[0]
 			queue = queue[1:]
@@ -78,7 +78,7 @@ func BreadthFirstTraversalIII(root *TreeNode) [][]int {
 		}
 		elements = append([][]int{level}, elements...)
 	}
-  return elements
+	return elements
 }
 
 func DepthFirstTraversal(root *TreeNode) []int {
@@ -148,16 +148,16 @@ func DepthFirstSearchRecusive(root *TreeNode, key int) bool {
 }
 
 func SearchBST(root *TreeNode, val int) *TreeNode {
-  if root == nil {
-    return nil
-  }
-  if root.Value == val {
-    return root
-  } else if root.Value > val {
-    return SearchBST(root.Left, val)
-  } else {
-    return SearchBST(root.Right, val)
-  }
+	if root == nil {
+		return nil
+	}
+	if root.Value == val {
+		return root
+	} else if root.Value > val {
+		return SearchBST(root.Left, val)
+	} else {
+		return SearchBST(root.Right, val)
+	}
 }
 
 func TreeMinimumDFS(root *TreeNode) int {
@@ -182,22 +182,22 @@ func TreeMinimumDFS(root *TreeNode) int {
 
 func TreeMinimumBFS(root *TreeNode) int {
 	var minimum int = math.MaxInt
-  var queue []*TreeNode
-  queue = append(queue, root)
-  for len(queue) != 0 {
-    var node *TreeNode = queue[0]
-    queue = queue[1:]
-    if node.Value < minimum {
-      minimum = node.Value
-    }
-    if node.Left != nil {
-      queue = append(queue, node.Left)
-    }
-    if node.Right != nil {
-      queue = append(queue, node.Right)
-    }
-  }
-  return minimum
+	var queue []*TreeNode
+	queue = append(queue, root)
+	for len(queue) != 0 {
+		var node *TreeNode = queue[0]
+		queue = queue[1:]
+		if node.Value < minimum {
+			minimum = node.Value
+		}
+		if node.Left != nil {
+			queue = append(queue, node.Left)
+		}
+		if node.Right != nil {
+			queue = append(queue, node.Right)
+		}
+	}
+	return minimum
 }
 
 func TreeMaximumDFS(root *TreeNode) int {
@@ -222,22 +222,22 @@ func TreeMaximumDFS(root *TreeNode) int {
 
 func TreeMaximumBFS(root *TreeNode) int {
 	var maximum int = math.MaxInt
-  var queue []*TreeNode
-  queue = append(queue, root)
-  for len(queue) != 0 {
-    var node *TreeNode = queue[0]
-    queue = queue[1:]
-    if node.Value > maximum {
-      maximum = node.Value
-    }
-    if node.Left != nil {
-      queue = append(queue, node.Left)
-    }
-    if node.Right != nil {
-      queue = append(queue, node.Right)
-    }
-  }
-  return maximum
+	var queue []*TreeNode
+	queue = append(queue, root)
+	for len(queue) != 0 {
+		var node *TreeNode = queue[0]
+		queue = queue[1:]
+		if node.Value > maximum {
+			maximum = node.Value
+		}
+		if node.Left != nil {
+			queue = append(queue, node.Left)
+		}
+		if node.Right != nil {
+			queue = append(queue, node.Right)
+		}
+	}
+	return maximum
 }
 
 func TreeSumDFS(root *TreeNode) int {
@@ -341,161 +341,161 @@ func PostorderTraversal(root *TreeNode) []int {
 }
 
 func BSTInsert(root *TreeNode, val int) {
-  if root == nil {
-    root =  &TreeNode{Value: val}
-  }
-  if root.Value >= val {
-    if root.Left != nil {
-      BSTInsert(root.Left, val)
-    } else {
-      root.Left = &TreeNode{Value: val}
-    }
-  } else {
-    if root.Right != nil {
-      BSTInsert(root, val)
-    } else {
-      root.Right = &TreeNode{Value: val}
-    }
-  }
+	if root == nil {
+		root = &TreeNode{Value: val}
+	}
+	if root.Value >= val {
+		if root.Left != nil {
+			BSTInsert(root.Left, val)
+		} else {
+			root.Left = &TreeNode{Value: val}
+		}
+	} else {
+		if root.Right != nil {
+			BSTInsert(root, val)
+		} else {
+			root.Right = &TreeNode{Value: val}
+		}
+	}
 }
 
 func TreeDepthBFS(root *TreeNode) int {
-  var depth int = 0
-  var queue []*TreeNode
-  queue = append(queue, root)
-  for len(queue) != 0 {
-    for range queue {
-      var node *TreeNode = queue[0]
-      queue = queue[1:]
-      if node.Left != nil {
-        queue = append(queue, node.Left)
-      }
-      if node.Right != nil {
-        queue = append(queue, node.Right)
-      }
-    }
-    depth++
-  }
-  return depth
+	var depth int = 0
+	var queue []*TreeNode
+	queue = append(queue, root)
+	for len(queue) != 0 {
+		for range queue {
+			var node *TreeNode = queue[0]
+			queue = queue[1:]
+			if node.Left != nil {
+				queue = append(queue, node.Left)
+			}
+			if node.Right != nil {
+				queue = append(queue, node.Right)
+			}
+		}
+		depth++
+	}
+	return depth
 }
 
 func TreeDepthDFSRecursive(root *TreeNode) int {
-  var dfs func(root *TreeNode, depth float64) float64
-  dfs = func(root *TreeNode, depth float64) float64 {
-    if root == nil {
-      return depth
-    } else {
-      return math.Max(dfs(root.Left, depth + 1), dfs(root.Right, depth + 1))
-    }
-  } 
-  return int(dfs(root, 0))
+	var dfs func(root *TreeNode, depth float64) float64
+	dfs = func(root *TreeNode, depth float64) float64 {
+		if root == nil {
+			return depth
+		} else {
+			return math.Max(dfs(root.Left, depth+1), dfs(root.Right, depth+1))
+		}
+	}
+	return int(dfs(root, 0))
 }
 
 func InvertTree(root *TreeNode) *TreeNode {
-  if root == nil {
-    return nil
-  }
-  var queue []*TreeNode
-  queue = append(queue, root)
-  for len(queue) != 0 {
-    var node *TreeNode = queue[0]
-    queue = queue[1:]
-    if node.Left != nil {
-      queue = append(queue, node.Left)
-    }
-    if node.Right != nil {
-      queue = append(queue, node.Right)
-    }
-    node.Left, node.Right = node.Right, node.Left
-  }
-  return root
+	if root == nil {
+		return nil
+	}
+	var queue []*TreeNode
+	queue = append(queue, root)
+	for len(queue) != 0 {
+		var node *TreeNode = queue[0]
+		queue = queue[1:]
+		if node.Left != nil {
+			queue = append(queue, node.Left)
+		}
+		if node.Right != nil {
+			queue = append(queue, node.Right)
+		}
+		node.Left, node.Right = node.Right, node.Left
+	}
+	return root
 }
 
 func SameTree(p, q *TreeNode) bool {
-  if p == nil && q == nil {
-    return true
-  } 
-  if p == nil || q == nil {
-    return false
-  }
-  if p.Value == q.Value {
-    return SameTree(p.Left, q.Left) && SameTree(p.Right, q.Right)
-  }
-  return false
+	if p == nil && q == nil {
+		return true
+	}
+	if p == nil || q == nil {
+		return false
+	}
+	if p.Value == q.Value {
+		return SameTree(p.Left, q.Left) && SameTree(p.Right, q.Right)
+	}
+	return false
 }
 
 func CountNodesBFS(root *TreeNode) int {
-  if root == nil {
-    return 0
-  }
-  var count int = 0
-  var queue []*TreeNode
-  queue = append(queue, root)
-  for len(queue) != 0 {
-    var node *TreeNode = queue[0]
-    queue = queue[1:]
-    count++
-    if node.Left != nil {
-      queue = append(queue, node.Left)
-    }
-    if node.Right != nil {
-      queue = append(queue, node.Right)
-    }
-  }
-  return count
+	if root == nil {
+		return 0
+	}
+	var count int = 0
+	var queue []*TreeNode
+	queue = append(queue, root)
+	for len(queue) != 0 {
+		var node *TreeNode = queue[0]
+		queue = queue[1:]
+		count++
+		if node.Left != nil {
+			queue = append(queue, node.Left)
+		}
+		if node.Right != nil {
+			queue = append(queue, node.Right)
+		}
+	}
+	return count
 }
 
 func CountNodesDFS(root *TreeNode) int {
-  if root == nil {
-    return 0
-  }
-  var count int = 0
-  var stack []*TreeNode
-  stack = append(stack, root)
-  for len(stack) != 0 {
-    var node *TreeNode = stack[len(stack)-1]
-    stack = stack[:len(stack)-1]
-    count++
-    if node.Left != nil {
-      stack = append(stack, node.Left)
-    }
-    if node.Right != nil {
-      stack = append(stack, node.Right)
-    }
-  }
-  return count
+	if root == nil {
+		return 0
+	}
+	var count int = 0
+	var stack []*TreeNode
+	stack = append(stack, root)
+	for len(stack) != 0 {
+		var node *TreeNode = stack[len(stack)-1]
+		stack = stack[:len(stack)-1]
+		count++
+		if node.Left != nil {
+			stack = append(stack, node.Left)
+		}
+		if node.Right != nil {
+			stack = append(stack, node.Right)
+		}
+	}
+	return count
 }
 
 func CountNodesRecursive(root *TreeNode) int {
-  if root == nil {
-    return 0
-  }
-  return 1 + CountNodesRecursive(root.Left) + CountNodesRecursive(root.Right)
+	if root == nil {
+		return 0
+	}
+	return 1 + CountNodesRecursive(root.Left) + CountNodesRecursive(root.Right)
 }
 
 func MinDepth(root *TreeNode) int {
-  if root == nil {
-    return 0
-  }
-  var queue []*TreeNode
-  var depth int = 1
-  queue = append(queue, root)
-  for len(queue) != 0 {
-    var base int = len(queue)
-    for i := 0; i < base; i++ {
-      var node *TreeNode = queue[0]
-      queue = queue[1:]
-      if node.Left == nil && node.Right == nil {
-        return depth
-      }
-      if node.Left != nil {
-        queue = append(queue, node.Left)
-      }
-      if node.Right != nil {
-        queue = append(queue, node.Right)
-      }
-    }
-  depth++
-  }
-  return depth
+	if root == nil {
+		return 0
+	}
+	var queue []*TreeNode
+	var depth int = 1
+	queue = append(queue, root)
+	for len(queue) != 0 {
+		var base int = len(queue)
+		for i := 0; i < base; i++ {
+			var node *TreeNode = queue[0]
+			queue = queue[1:]
+			if node.Left == nil && node.Right == nil {
+				return depth
+			}
+			if node.Left != nil {
+				queue = append(queue, node.Left)
+			}
+			if node.Right != nil {
+				queue = append(queue, node.Right)
+			}
+		}
+		depth++
+	}
+	return depth
 }
